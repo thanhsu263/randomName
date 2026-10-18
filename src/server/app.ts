@@ -102,44 +102,45 @@ export function buildApp(opts: AppOptions): FastifyInstance {
   app.get('/api/auth', async () => ({ required: Boolean(password) }));
   app.post('/api/auth/check', write, async () => ({ ok: true }));
 
-  app.get('/api/classes', async () => repo.listClasses());
+  app.get('/api/classes', async () => await repo.listClasses());
 
   app.post('/api/classes', write, async (req, reply) => {
     const body = parse(createClassSchema, req.body);
-    const cls = repo.createClass(body.name);
+    const cls = await repo.createClass(body.name);
     const rows = body.rows ?? (body.text ? parseText(body.text) : []);
-    if (rows.length) repo.importRows(cls.id, rows, 'append');
+    if (rows.length) await repo.importRows(cls.id, rows, 'append');
     reply.code(201);
-    return repo.getClass(cls.id);
+    return await repo.getClass(cls.id);
   });
 
   app.delete('/api/classes/:id', write, async (req) => {
     const { id } = parse(idParam, req.params);
-    if (!repo.deleteClass(id)) throw new HttpError(404, 'Không tìm thấy lớp');
+    if (!(await repo.deleteClass(id))) throw new HttpError(404, 'Không tìm thấy lớp');
     return { ok: true };
   });
 
   app.post('/api/classes/:id/import', write, async (req) => {
     const { id } = parse(idParam, req.params);
-    if (!repo.getClass(id)) throw new HttpError(404, 'Không tìm thấy lớp');
+    if (!(await repo.getClass(id))) throw new HttpError(404, 'Không tìm thấy lớp');
     const body = parse(importSchema, req.body);
     const rows = body.rows ?? parseText(body.text ?? '');
     if (rows.length === 0) throw new HttpError(400, 'Không đọc được sinh viên nào từ dữ liệu nhập');
-    return repo.importRows(id, rows, body.mode);
+    return await repo.importRows(id, rows, body.mode);
   });
 
   app.post('/api/classes/:id/session/reset', write, async (req) => {
     const { id } = parse(idParam, req.params);
-    const cls = repo.resetSession(id);
+    const cls = await repo.resetSession(id);
     if (!cls) throw new HttpError(404, 'Không tìm thấy lớp');
     return cls;
   });
 
   app.get('/api/classes/:id/students', async (req) => {
     const { id } = parse(idParam, req.params);
-    const cls = repo.getClass(id);
+    const cls = await repo.getClass(id);
     if (!cls) throw new HttpError(404, 'Không tìm thấy lớp');
-    return { class: cls, students: repo.students(id), calledIds: repo.calledIds(id) };
+    const [students, calledIds] = await Promise.all([repo.students(id), repo.calledIds(id)]);
+    return { class: cls, students, calledIds };
   });
 
   /**
@@ -148,9 +149,9 @@ export function buildApp(opts: AppOptions): FastifyInstance {
    */
   app.post('/api/draws', write, async (req, reply) => {
     const body = parse(drawSchema, req.body);
-    if (!repo.getClass(body.classId)) throw new HttpError(404, 'Không tìm thấy lớp');
-    const all = repo.students(body.classId).map((s) => s.id);
-    const pool = eligiblePool(all, repo.calledIds(body.classId), body.excludeCalled);
+    if (!(await repo.getClass(body.classId))) throw new HttpError(404, 'Không tìm thấy lớp');
+    const all = (await repo.students(body.classId)).map((s) => s.id);
+    const pool = eligiblePool(all, await repo.calledIds(body.classId), body.excludeCalled);
     if (pool.length === 0) throw new HttpError(400, 'Không còn SV khả dụng — hãy bấm "Gọi lại từ đầu"');
     if (body.n > pool.length) throw new HttpError(400, `Chỉ còn ${pool.length} SV khả dụng`);
     const params: DrawParams = {
@@ -161,19 +162,19 @@ export function buildApp(opts: AppOptions): FastifyInstance {
     };
     const seed = randomBytes(32).toString('hex');
     const script = generateScript({ seed, poolIds: pool, n: body.n, escapeProb: body.escapeProb, duration: body.duration });
-    const roster = repo.rosterSnapshot(body.classId, pool);
+    const roster = await repo.rosterSnapshot(body.classId, pool);
     reply.code(201);
-    return repo.saveDraw(body.classId, params, script, roster);
+    return await repo.saveDraw(body.classId, params, script, roster);
   });
 
   app.get('/api/draws', async (req) => {
     const q = parse(listDrawsSchema, req.query);
-    return repo.listDraws(q.classId ?? null, q.limit);
+    return await repo.listDraws(q.classId ?? null, q.limit);
   });
 
   app.get('/api/draws/:id', async (req) => {
     const { id } = parse(idParam, req.params);
-    const d = repo.getDraw(id);
+    const d = await repo.getDraw(id);
     if (!d) throw new HttpError(404, 'Không tìm thấy lượt gọi');
     return d;
   });

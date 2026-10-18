@@ -4,7 +4,7 @@ import globals from 'globals';
 import prettier from 'eslint-config-prettier';
 
 export default tseslint.config(
-  { ignores: ['dist/**', 'node_modules/**', 'data/**', 'public/**'] },
+  { ignores: ['dist/**', 'node_modules/**', 'data/**', 'public/**', '.vercel/**', 'art/**'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {

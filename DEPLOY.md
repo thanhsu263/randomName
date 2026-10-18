@@ -1,57 +1,98 @@
 # Hướng dẫn deploy
 
-## Vì sao không deploy nguyên trạng lên Vercel
+## Kiến trúc khi chạy trên Vercel
 
-App là **một server Fastify chạy liên tục**, lưu dữ liệu bằng **SQLite trong file** (`data/app.db`, thư viện native `better-sqlite3`). Vercel không hợp với kiểu app này vì:
+- **Giao diện**: các file tĩnh (`dist/public`), phát qua CDN của Vercel.
+- **API**: chạy trong **1 Vercel Function** (`/api/*`). Bên trong là Fastify, đóng gói sẵn bởi `npm run build:vercel` theo Build Output API v3.
+- **CSDL**: **Turso**, tức SQLite chạy trên mạng (libSQL). Schema giống hệt bản cục bộ.
 
-- Vercel chỉ chạy hàm serverless ngắn hạn, không có server chạy liên tục.
-- Ổ đĩa trên Vercel không giữ lại được: lớp học và lịch sử gọi tên sẽ mất ngẫu nhiên.
-- Module native `better-sqlite3` dễ lỗi khi build trên Vercel.
-
-Vì vậy nên dùng một nền tảng **chạy được Docker và có ổ đĩa lưu trữ (volume)**. Repo đã có sẵn `Dockerfile`, nên không cần sửa code. Cách A và B bên dưới đều theo hướng này.
+Cùng một bộ code vẫn chạy được cục bộ và bằng Docker với file SQLite. Xem `HUONG-DAN-CHAY.md`.
 
 ---
 
-## Cách A: Render (giao diện web, dễ nhất)
+## Bước 1: Tạo CSDL Turso (miễn phí)
 
-1. Đăng nhập https://render.com bằng tài khoản GitHub.
-2. **New +** → **Web Service** → chọn repo `thanhsu263/randomName`.
-3. Cấu hình:
-   - **Language/Runtime**: `Docker`. Render tự nhận `Dockerfile`.
-   - **Branch**: `main`
-   - **Instance type**: `Starter` trở lên. Gói Free không gắn được ổ đĩa, dữ liệu sẽ mất mỗi lần khởi động lại.
-4. **Environment Variables**:
-   - `DB_PATH` = `/app/data/app.db`
-   - `ADMIN_PASSWORD` = *(mật khẩu giảng viên, nên đặt vì web công khai)*
-   - Không cần đặt `PORT`. Render tự truyền và app đọc biến này.
-5. **Advanced** → **Add Disk**:
-   - Mount path: `/app/data`
-   - Size: `1 GB` là đủ
-6. **Create Web Service**. Chờ build xong (khoảng 3–5 phút), Render cấp địa chỉ dạng `https://randomname-xxxx.onrender.com`.
+1. Vào https://turso.tech → **Sign up** bằng GitHub.
+2. **Create Database**:
+   - Name: `sgu-goi-ten`
+   - Location: chọn **Singapore** (gần Việt Nam). Nên chọn cùng khu vực với Vercel ở bước 3.
+3. Mở database vừa tạo:
+   - Copy **Database URL**, dạng `libsql://sgu-goi-ten-<tên>.turso.io`.
+   - Bấm **Create Token** (quyền Read & Write, không hết hạn) → copy **token**.
 
-Mỗi lần `git push` lên `main`, Render tự build và deploy lại.
+Không cần tạo bảng thủ công: app tự tạo bảng và lớp mẫu 40 SV ở lần chạy đầu.
 
-## Cách B: Railway
+## Bước 2: Đưa code lên GitHub
 
-1. Đăng nhập https://railway.app bằng GitHub → **New Project** → **Deploy from GitHub repo** → chọn `randomName`. Railway tự dùng `Dockerfile`.
-2. Tab **Variables**: thêm `DB_PATH=/app/data/app.db` và `ADMIN_PASSWORD=...`.
-3. Chuột phải vào service → **Attach Volume** → mount path `/app/data`.
-4. Tab **Settings** → **Networking** → **Generate Domain** để có địa chỉ truy cập.
+Code đã ở https://github.com/thanhsu263/randomName. Nên để repo **Private**, vì repo có nhạc © Ubisoft.
 
-## Lưu ý chung
+## Bước 3: Tạo project trên Vercel
 
-- **Bắt buộc đặt `ADMIN_PASSWORD`** khi đưa lên Internet. Nếu không, ai có link cũng có thể tạo, xoá lớp và gọi tên.
-- Lần đầu chạy, app tự tạo lớp mẫu 40 SV. Có thể xoá lớp mẫu trong giao diện.
-- **Bản quyền**: repo chứa nhạc *Smurfs Epic Run* © Ubisoft và hình tượng Peyo. Hãy để **repo ở chế độ Private**, và chỉ chia sẻ link web cho nội bộ lớp học.
-- Build cần Internet, vì gói `xlsx` được tải từ cdn.sheetjs.com. Các nền tảng trên đều có sẵn.
+1. Vào https://vercel.com → **Sign up / Log in** bằng GitHub.
+2. **Add New… → Project** → **Import** repo `randomName`. Nếu không thấy repo private, bấm *Adjust GitHub App Permissions* để cấp quyền.
+3. Màn **Configure Project**:
+   - **Framework Preset**: `Other`
+   - **Build Command / Install Command / Output Directory**: để mặc định. File `vercel.json` trong repo đã khai báo `npm ci` và `npm run build:vercel`.
+   - **Environment Variables**: thêm 3 biến
+
+     | Name | Value |
+     |---|---|
+     | `TURSO_DATABASE_URL` | `libsql://sgu-goi-ten-<tên>.turso.io` |
+     | `TURSO_AUTH_TOKEN` | token đã copy ở bước 1 |
+     | `ADMIN_PASSWORD` | mật khẩu giảng viên (**bắt buộc**, vì web công khai) |
+
+4. Bấm **Deploy** và chờ khoảng 1–2 phút. Vercel cấp địa chỉ dạng `https://random-name-xxxx.vercel.app`.
+5. (Nên làm) **Settings → Functions → Function Region**: chọn `Singapore (sin1)` cho gần Turso, giúp API nhanh hơn.
+
+Từ đó, mỗi lần `git push` lên nhánh `main`, Vercel tự build và deploy lại. Push lên nhánh khác sẽ tạo bản Preview riêng.
+
+## Bước 4: Kiểm tra
+
+- Mở `https://<địa-chỉ>.vercel.app/api/health` → phải thấy `{"ok":true}`.
+- Mở trang chủ → màn Setup hiện lớp mẫu 40 SV.
+- Bấm **GARGAMEL XUẤT KÍCH!** → trình duyệt hỏi mật khẩu giảng viên → nhập `ADMIN_PASSWORD`.
+
+## Biến môi trường
+
+| Biến | Ý nghĩa |
+|---|---|
+| `TURSO_DATABASE_URL` | URL Turso. Có biến này thì app dùng Turso thay cho file SQLite. |
+| `TURSO_AUTH_TOKEN` | Token của Turso |
+| `ADMIN_PASSWORD` | Mật khẩu cho mọi thao tác ghi (tạo/xoá lớp, nhập danh sách, gọi tên) |
+| `SEED_SAMPLE` | Đặt `0` để không tự tạo lớp mẫu khi CSDL trống |
+
+## Chuyển dữ liệu từ máy lên Turso (tuỳ chọn)
+
+Nếu muốn mang lớp và lịch sử gọi tên đang có trong `data/app.db` lên Turso, cài Turso CLI (https://docs.turso.tech/cli/installation) rồi chạy:
+
+```bash
+turso db import data/app.db
+```
+
+Lệnh này tạo một database **mới** từ file. Sau đó lấy URL và token của database mới đó cho bước 3.
+
+## Gặp lỗi
+
+| Hiện tượng | Nguyên nhân / cách xử lý |
+|---|---|
+| API trả `Máy chủ chưa cấu hình xong CSDL` | Thiếu hoặc sai `TURSO_DATABASE_URL` / `TURSO_AUTH_TOKEN`. Sửa trong **Settings → Environment Variables**, rồi **Deployments → Redeploy**. |
+| Lỗi 401 khi gọi tên | Nhập đúng `ADMIN_PASSWORD`. |
+| Sửa biến môi trường mà không có tác dụng | Vercel chỉ áp dụng biến mới khi deploy lại: vào **Redeploy**. |
+| Xem log lỗi | Vercel → project → **Logs** (hoặc **Deployments → Functions**). |
+
+## Chạy thử bản Vercel trên máy (tuỳ chọn)
+
+```bash
+npm run build:vercel
+```
+
+Lệnh này tạo `.vercel/output/` giống hệt thứ Vercel deploy. Nếu đã cài Vercel CLI (`npm i -g vercel`), có thể deploy thẳng từ máy bằng `vercel deploy --prebuilt`.
 
 ---
 
-## Nếu bắt buộc dùng Vercel
+## Phương án khác: Docker (Render / Railway)
 
-Có 2 lựa chọn, đều phải sửa code:
+Vẫn dùng được nếu không muốn dùng Vercel. Dockerfile dùng file SQLite trong volume `/app/data`, hoặc Turso nếu đặt `TURSO_DATABASE_URL`. Các bước:
 
-1. **Vercel chỉ cho giao diện + API ở Render/Railway**: deploy thư mục `dist/public` lên Vercel, server vẫn chạy theo cách A hoặc B. Cần sửa client gọi API theo địa chỉ tuyệt đối (biến `VITE_API_URL`) và bật CORS trên server.
-2. **Chuyển hẳn sang Vercel**: thay SQLite bằng CSDL trên mạng (Turso/libSQL hoặc Neon Postgres), viết lại các route `/api/*` thành Vercel Functions, rồi deploy giao diện như site tĩnh của Vite.
-
-Hai lựa chọn này cần thêm công sửa code. Báo lại nếu muốn làm.
+- **Railway**: New Project → Deploy from GitHub repo → thêm biến `ADMIN_PASSWORD` → Attach Volume tại `/app/data` → Generate Domain.
+- **Render**: New Web Service → Runtime Docker → thêm biến `ADMIN_PASSWORD` → Add Disk tại `/app/data` (cần gói trả phí).

@@ -9,9 +9,9 @@ import type { ClassInfo, DrawRecord, DrawSummary } from '../src/shared/types';
 let db: DB;
 let app: FastifyInstance;
 
-beforeEach(() => {
-  db = openDb(':memory:');
-  new Repo(db).seedIfEmpty();
+beforeEach(async () => {
+  db = await openDb(':memory:');
+  await new Repo(db).seedIfEmpty();
   app = buildApp({ db });
 });
 afterEach(async () => {

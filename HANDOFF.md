@@ -51,6 +51,14 @@ Mốc theo đặc tả gốc: M1–M4 xong. M5 (asset thật, âm thanh, polish)
 - `Settings.hideTimer` (mặc định `false`) có ô tích ở màn Setup. Giá trị được truyền qua `ChaseData.hideTimer` → `HudData.hideTimer`.
 - HUD ghi lại các đối tượng tạo từ đầu `create()` tới `timeText` (cuộn giấy, thanh đầy, nấm đánh dấu, chữ "còn … giây"), ẩn chúng, rồi tháo tham chiếu `fill`/`marker`/`bar` để `update()` bỏ qua. Bảng "Đã bắt x/N" vẫn hiện. Logic cũ không đổi.
 
+## 3c. Chuyển sang Vercel + Turso (2026-10-18)
+
+- Thay `better-sqlite3` bằng `@libsql/client`. `db.ts` mở `file:` cục bộ, `:memory:`, hoặc Turso (`TURSO_DATABASE_URL` + `TURSO_AUTH_TOKEN`), xem `dbConfigFromEnv()`. Migration chạy lặp lại an toàn (bảng `schema_version`), và tương thích file DB cũ.
+- `repo.ts` chuyển hết sang async. Thao tác nhiều câu chạy bằng `db.batch(..., 'write')`. `startOfTodayVN()` tính "buổi mới mỗi ngày" theo giờ Việt Nam, không theo múi giờ máy chủ.
+- `src/vercel/handler.ts` là Vercel Function bọc Fastify (route `/api/*` → `/api?__p=*`, hàm `restoreUrl` khôi phục URL gốc).
+- `scripts/build-vercel.mjs` (lệnh `npm run build:vercel`) tạo `.vercel/output` theo Build Output API v3, bundle API bằng `@libsql/client/web` (không module native). `vercel.json` khai báo lệnh build.
+- Đã kiểm thử: bundle chạy với libsql-server cục bộ (Docker) qua HTTP; bản `npm start` đọc được `data/app.db` cũ; Docker image chạy được. **Chưa deploy thật lên Vercel/Turso** vì cần tài khoản của chủ dự án; làm theo DEPLOY.md.
+
 ## 4. VIỆC CÒN LẠI
 
 1. (Đã xong) Docker: image build và chạy được. Stage build cài python3/make/g++ để biên dịch better-sqlite3. Lúc build cần mạng vì `xlsx` tải từ cdn.sheetjs.com.

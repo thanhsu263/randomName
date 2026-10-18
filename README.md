@@ -37,6 +37,7 @@ Lần đầu chạy, server tự tạo CSDL SQLite ở `data/app.db` kèm một 
 | `PORT` | `3000` | Cổng server |
 | `HOST` | `127.0.0.1` | Đặt `0.0.0.0` để máy khác trong mạng truy cập được |
 | `DB_PATH` | `data/app.db` | Đường dẫn file SQLite |
+| `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN` | trống | Dùng CSDL Turso (SQLite trên mạng) thay cho file. Bắt buộc khi chạy trên Vercel. |
 | `ADMIN_PASSWORD` | trống | Nếu đặt, mọi thao tác ghi (tạo lớp, nhập danh sách, gọi tên…) đều hỏi mật khẩu giảng viên |
 | `LOG` | trống | Đặt `1` để bật log request |
 
@@ -72,6 +73,10 @@ Lệnh này chép asset sang `public/assets/` và **sinh lại** `public/assets/
 - Muốn thay một asset: thả file PNG vào `public/assets/...` rồi điền `path` trong manifest, không cần sửa code.
 - Xem nhanh mọi asset tại `/?gallery`. Lọc theo tên bằng tham số, ví dụ `/?gallery=kid`.
 - Nhạc nền và jingle nằm trong `public/assets/audio/`, khai báo ở mục `audio` của manifest. Hiệu ứng âm thanh còn lại được tổng hợp bằng WebAudio.
+
+## Deploy lên Vercel
+
+Xem [DEPLOY.md](DEPLOY.md): giao diện chạy trên CDN của Vercel, API chạy trong 1 Vercel Function, CSDL là Turso. Build bằng `npm run build:vercel`.
 
 ## Triển khai bằng Docker
 

@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { openDb } from './db';
+import { dbConfigFromEnv, openDb } from './db';
 import { buildApp } from './app';
 import { Repo } from './repo';
 
@@ -8,10 +8,9 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const portArg = process.argv.find((a) => a.startsWith('--port='));
 const port = Number(portArg ? portArg.slice(7) : (process.env.PORT ?? 3000));
 const host = process.env.HOST ?? '127.0.0.1';
-const dbPath = process.env.DB_PATH ?? path.resolve(process.cwd(), 'data', 'app.db');
-
-const db = openDb(dbPath);
-if (new Repo(db).seedIfEmpty()) console.log('[db] Đã tạo lớp mẫu 40 sinh viên');
+// CSDL: TURSO_DATABASE_URL (+ TURSO_AUTH_TOKEN) nếu có, ngược lại file SQLite DB_PATH (mặc định data/app.db)
+const db = await openDb(dbConfigFromEnv());
+if (await new Repo(db).seedIfEmpty()) console.log('[db] Đã tạo lớp mẫu 40 sinh viên');
 
 // Bản build: dist/server.js phục vụ dist/public. Khi dev, Vite phục vụ frontend.
 const app = buildApp({
