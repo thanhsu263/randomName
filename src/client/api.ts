@@ -1,5 +1,7 @@
 // Gọi REST API của server. Nếu server bật ADMIN_PASSWORD, hỏi mật khẩu giảng viên khi cần.
 import type { ClassInfo, DrawParams, DrawRecord, DrawSummary, RosterRow, Student } from '@shared/types';
+import { InFlight } from './inflight';
+import { beginLoading } from './ui/loading';
 import { promptPassword } from './ui/modal';
 
 const PW_KEY = 'sgu-admin-pw';
@@ -29,7 +31,38 @@ export class ApiError extends Error {
   }
 }
 
-async function request<T>(method: string, url: string, body?: unknown, retry = true, attempt = 0): Promise<T> {
+/** Yêu cầu ghi đang chờ: bấm trùng (vd. "XUẤT KÍCH" liên tục) chỉ gửi 1 lần. */
+const writes = new InFlight();
+
+function loadingMessage(method: string, url: string): string {
+  if (method === 'POST' && url === '/api/draws') return 'Gargamel đang chuẩn bị túi';
+  if (method === 'GET') return 'Đang tải';
+  return 'Đang xử lý';
+}
+
+function request<T>(method: string, url: string, body?: unknown): Promise<T> {
+  if (method === 'GET') return send<T>(method, url, body);
+  return writes.run(`${method} ${url} ${JSON.stringify(body ?? null)}`, () => send<T>(method, url, body));
+}
+
+async function send<T>(method: string, url: string, body?: unknown, retry = true, attempt = 0): Promise<T> {
+  // yêu cầu ghi: chắn mọi thao tác trong lúc chờ; yêu cầu đọc: chỉ hiện biểu tượng chờ nếu lâu
+  const end = beginLoading({ block: method !== 'GET', message: loadingMessage(method, url) });
+  try {
+    return await sendOnce<T>(method, url, body, retry, attempt, end);
+  } finally {
+    end();
+  }
+}
+
+async function sendOnce<T>(
+  method: string,
+  url: string,
+  body: unknown,
+  retry: boolean,
+  attempt: number,
+  endLoading: () => void,
+): Promise<T> {
   const headers: Record<string, string> = {};
   if (body !== undefined) headers['content-type'] = 'application/json';
   const pw = getPw();
@@ -43,13 +76,14 @@ async function request<T>(method: string, url: string, body?: unknown, retry = t
   // server vừa khởi động (dev / cold start serverless): đợi chút rồi thử lại, chỉ với request đọc
   if ((res.status === 502 || res.status === 503) && method === 'GET' && attempt < 6) {
     await new Promise((r) => setTimeout(r, 700));
-    return request<T>(method, url, body, retry, attempt + 1);
+    return send<T>(method, url, body, retry, attempt + 1);
   }
   if (res.status === 401 && retry) {
+    endLoading(); // nhả màn chắn để hộp thoại mật khẩu bấm được
     const entered = await promptPassword(pw ? 'Mật khẩu chưa đúng, nhập lại:' : 'Nhập mật khẩu giảng viên:');
     if (entered === null) throw new ApiError(401, 'Cần mật khẩu giảng viên');
     setPw(entered);
-    return request<T>(method, url, body, true);
+    return send<T>(method, url, body, true);
   }
   const data = res.headers.get('content-type')?.includes('json') ? await res.json() : null;
   if (!res.ok) throw new ApiError(res.status, (data as { error?: string } | null)?.error ?? `Lỗi ${res.status}`);

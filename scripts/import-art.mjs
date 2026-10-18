@@ -111,10 +111,14 @@ for (let i = 0; i < 5; i++) {
 // ---------------------------------------------------------------- kid → smurf_*
 const KID_MAP = { run: 'smurf_run', trip: 'smurf_trip', getup: 'smurf_getup', jump: 'smurf_jump', struggle: 'smurf_struggle', pop: 'smurf_escape_pop' };
 const kf = kid.frame;
+// Biến thể tạm không dùng: vẫn giữ file trong art/ (và public/ nếu đã có) nhưng không chép thêm, không đưa vào manifest → game không nạp, không gán cho sinh viên.
+// Muốn dùng lại: bỏ tên khỏi danh sách này rồi chạy `npm run import:art`.
+const DISABLED_VARIANTS = ['book'];
+const kidVariants = kid.variants.filter((v) => !DISABLED_VARIANTS.includes(v));
 for (const [anim, key] of Object.entries(KID_MAP)) {
   const a = kid.anims[anim];
   const variants = {};
-  for (const v of kid.variants) {
+  for (const v of kidVariants) {
     const file = v === 'base' ? `kid_${anim}.png` : `kid_${anim}_${v}.png`;
     variants[v] = copy(`${SP}/${file}`, `sprites/${file}`);
     count++;
@@ -122,10 +126,13 @@ for (const [anim, key] of Object.entries(KID_MAP)) {
   const { width } = pngSize(`${SP}/kid_${anim}.png`);
   if (width / kf !== a.frames) throw new Error(`kid_${anim}: ${width / kf} khung, json ghi ${a.frames}`);
   // topTrack = đỉnh nhân vật (mũ) mỗi khung: lấy khung cao nhất trong các biến thể (bút chì, kính… có thể nhô lên)
-  const tops = kid.variants.map((v) => characterTops(PNG.sync.read(readFileSync(`${SP}/${v === 'base' ? `kid_${anim}` : `kid_${anim}_${v}`}.png`)), kf, a.frames));
+  const tops = kidVariants.map((v) => characterTops(PNG.sync.read(readFileSync(`${SP}/${v === 'base' ? `kid_${anim}` : `kid_${anim}_${v}`}.png`)), kf, a.frames));
   const topTrack = tops[0].map((t0, i) => {
     let best = t0;
-    for (const t of tops) if (t && (!best || t[1] < best[1])) best = [t0 ? t0[0] : t[0], t[1]];
+    for (const frames of tops) {
+      const t = frames[i];
+      if (t && (!best || t[1] < best[1])) best = [t0 ? t0[0] : t[0], t[1]];
+    }
     return best;
   });
   manifest.sprites[key] = {
@@ -278,7 +285,8 @@ for (const name of ['ui_scroll', 'ui_scroll_fill', 'ui_scroll_marker', 'ui_butto
 
 manifest._art = {
   source: 'art/ (model vẽ asset). Sinh tự động bởi scripts/import-art.mjs — đừng sửa tay các mục có path.',
-  kidVariants: kid.variants,
+  kidVariants,
+  disabledVariants: DISABLED_VARIANTS,
 };
 writeFileSync(MANIFEST, JSON.stringify(manifest, null, 2) + '\n');
 if (!existsSync(MANIFEST)) throw new Error('Không ghi được manifest');

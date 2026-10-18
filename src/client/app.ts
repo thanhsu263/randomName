@@ -5,6 +5,7 @@ import { audio } from './audio/AudioManager';
 import { GameHost } from './game/GameHost';
 import type { GameEvent } from './game/Director';
 import { loadSettings, saveSettings, type Settings } from './state';
+import { beginLoading, isBlocking } from './ui/loading';
 import { modalOpen, toast } from './ui/modal';
 import { renderSetup } from './screens/setup';
 import { renderResult } from './screens/result';
@@ -61,6 +62,8 @@ export class App {
       return;
     }
     this.starting = true;
+    // giữ màn chắn suốt từ lúc bấm tới khi màn rượt đuổi đã khởi động: không thể bấm "XUẤT KÍCH" lần nữa
+    const endLoading = beginLoading({ block: true, message: 'Gargamel đang xuất kích' });
     try {
       const draw = await api.createDraw(s.classId, {
         n: s.n,
@@ -72,12 +75,14 @@ export class App {
     } catch (e) {
       toast((e as Error).message, 'error');
     } finally {
+      endLoading();
       this.starting = false;
     }
   }
 
   async playChase(draw: DrawRecord, replay: boolean) {
     this.showScreen('chase');
+    const endLoading = beginLoading({ block: true, message: 'Gargamel đang xuất kích' }); // khởi động Phaser có thể mất ~1 giây
     audio.clearMusicIntent();
     audio.stopMusic(300);
     const D = draw.script.durationMs / 1000;
@@ -138,6 +143,8 @@ export class App {
       console.error(e);
       toast('Không khởi động được màn rượt đuổi — chuyển thẳng tới kết quả', 'error');
       this.showResult(draw, replay);
+    } finally {
+      endLoading();
     }
   }
 
@@ -172,7 +179,7 @@ export class App {
   bindKeys() {
     document.addEventListener('keydown', (e) => {
       audio.unlock();
-      if (modalOpen()) return;
+      if (isBlocking() || modalOpen()) return; // đang chờ server: bỏ qua phím tắt (Space, S, M, F)
       const tag = (e.target as HTMLElement | null)?.tagName;
       const typing = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT';
       if (typing && e.key !== 'Escape') {

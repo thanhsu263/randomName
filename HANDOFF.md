@@ -77,6 +77,13 @@ Mốc theo đặc tả gốc: M1–M4 xong. M5 (asset thật, âm thanh, polish)
 - Trước đây băng rôn neo vào tâm miếng vải trên mũ nên đè lên mũ/mặt. Giờ `import-art.mjs` đo **đỉnh nhân vật** mỗi khung (`topTrack` trong manifest): tách các mảng liền nhau, bỏ mảng nhỏ (sao, bụi, vạch tốc độ), lấy hàng trên cùng và x trung bình của 25 hàng đầu; lấy khung cao nhất trong 5 biến thể (bút chì, kính…).
 - `Smurf.ts` đặt đáy băng rôn cách đỉnh `LABEL_GAP` px (config.ts), cộng `LABEL_LANE_STAGGER` nhỏ theo làn. Không có `topTrack` (placeholder thủ tục) thì giữ cách neo cũ.
 
+## 3f. Bỏ biến thể book, màn loading, chống bấm nhiều lần (2026-10-18)
+
+- **Biến thể `book` tạm không dùng**: `DISABLED_VARIANTS = ['book']` trong `scripts/import-art.mjs`. File `kid_*_book.png` vẫn nằm trong `art/` và `public/`, nhưng không được đưa vào manifest nên game không nạp, không gán cho sinh viên (còn 4 biến thể: base, glasses, backpack, pencil). Muốn dùng lại: bỏ `'book'` khỏi danh sách rồi chạy `npm run import:art`.
+- **Màn loading** (`src/client/ui/loading.ts` + CSS cuối `styles.css`): biểu tượng tự vẽ bằng SVG theo phong cách tranh (ngôi sao nổ viền mực xoay + 3 chấm nảy, màu phẳng), hiện dần sau 0,25 s. `beginLoading({ block, message })` trả hàm nhả; nhiều nơi giữ cùng lúc thì chỉ tắt khi tất cả đã nhả. `block: true` dựng lớp chắn toàn màn hình, đặt `inert` lên `#screen`, `#stage`, `.toolbar` và `isBlocking()` làm phím tắt (Space, S, M, F) bị bỏ qua.
+- **Chống bấm nhiều lần**: (1) `api.ts` — mọi yêu cầu ghi (POST/DELETE) chắn thao tác trong lúc chờ; yêu cầu GET chỉ hiện biểu tượng chờ nếu lâu. (2) `inflight.ts` (`InFlight`, có test) gộp các yêu cầu ghi giống hệt nhau đang chờ thành 1 lần gửi. (3) `App.startDraw` / `playChase` giữ màn chắn từ lúc bấm đến khi màn rượt đuổi đã khởi động; `callNext` ở màn Kết quả có cờ `calling`. Khi server trả 401, màn chắn được nhả để hộp thoại mật khẩu bấm được.
+- Sửa lỗi trong `characterTops` (đo `topTrack`): vòng lặp qua các biến thể trước đó so sánh nhầm mảng khung thay vì từng khung.
+
 ## 4. VIỆC CÒN LẠI
 
 1. (Đã xong) Docker: image build và chạy được với PGlite (không còn module native phải biên dịch). Lúc build cần mạng vì `xlsx` tải từ cdn.sheetjs.com. Dữ liệu cũ trong volume `sgu-data` (file app.db) không tự chuyển: dùng `docker cp` lấy file ra rồi chạy `npm run migrate:sqlite`.

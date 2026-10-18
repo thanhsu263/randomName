@@ -6,6 +6,7 @@ import type { App } from '../app';
 import { audio } from '../audio/AudioManager';
 import { frameCount, kidVariants, setSpriteFrame, spriteEl } from '../ui/art';
 import { clear, h } from '../ui/dom';
+import { beginLoading } from '../ui/loading';
 import { confirmDialog, toast } from '../ui/modal';
 
 export function renderResult(app: App, draw: DrawRecord, replay: boolean) {
@@ -42,8 +43,12 @@ export function renderResult(app: App, draw: DrawRecord, replay: boolean) {
       toast('Đã sao chép danh sách', 'ok');
     }
   };
+  let calling = false;
   const callNext = async () => {
     if (replay) return void app.showSetup();
+    if (calling) return; // đã bấm rồi, đang chờ server
+    calling = true;
+    const endLoading = beginLoading({ block: true, message: 'Đang chuẩn bị lượt mới' });
     app.settings.classId = draw.classId;
     try {
       const st = await api.students(draw.classId);
@@ -61,6 +66,9 @@ export function renderResult(app: App, draw: DrawRecord, replay: boolean) {
       await app.startDraw();
     } catch (e) {
       toast((e as Error).message, 'error');
+    } finally {
+      endLoading();
+      calling = false;
     }
   };
   const restart = async () => {

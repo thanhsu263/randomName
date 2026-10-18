@@ -9,7 +9,6 @@
         "base": "sprites/kid_run.png",
         "glasses": "sprites/kid_run_glasses.png",
         "backpack": "sprites/kid_run_backpack.png",
-        "book": "sprites/kid_run_book.png",
         "pencil": "sprites/kid_run_pencil.png"
       },
       "frameWidth": 256,
@@ -110,7 +109,6 @@
         "base": "sprites/kid_trip.png",
         "glasses": "sprites/kid_trip_glasses.png",
         "backpack": "sprites/kid_trip_backpack.png",
-        "book": "sprites/kid_trip_book.png",
         "pencil": "sprites/kid_trip_pencil.png"
       },
       "frameWidth": 256,
@@ -193,7 +191,6 @@
         "base": "sprites/kid_getup.png",
         "glasses": "sprites/kid_getup_glasses.png",
         "backpack": "sprites/kid_getup_backpack.png",
-        "book": "sprites/kid_getup_book.png",
         "pencil": "sprites/kid_getup_pencil.png"
       },
       "frameWidth": 256,
@@ -230,7 +227,7 @@
       "topTrack": [
         [
           134.1,
-          162
+          157
         ],
         [
           141.5,
@@ -258,7 +255,6 @@
         "base": "sprites/kid_jump.png",
         "glasses": "sprites/kid_jump_glasses.png",
         "backpack": "sprites/kid_jump_backpack.png",
-        "book": "sprites/kid_jump_book.png",
         "pencil": "sprites/kid_jump_pencil.png"
       },
       "frameWidth": 256,
@@ -339,7 +335,6 @@
         "base": "sprites/kid_struggle.png",
         "glasses": "sprites/kid_struggle_glasses.png",
         "backpack": "sprites/kid_struggle_backpack.png",
-        "book": "sprites/kid_struggle_book.png",
         "pencil": "sprites/kid_struggle_pencil.png"
       },
       "frameWidth": 256,
@@ -422,7 +417,6 @@
         "base": "sprites/kid_pop.png",
         "glasses": "sprites/kid_pop_glasses.png",
         "backpack": "sprites/kid_pop_backpack.png",
-        "book": "sprites/kid_pop_book.png",
         "pencil": "sprites/kid_pop_pencil.png"
       },
       "frameWidth": 256,
@@ -1297,8 +1291,10 @@
       "base",
       "glasses",
       "backpack",
-      "book",
       "pencil"
+    ],
+    "disabledVariants": [
+      "book"
     ]
   }
 }

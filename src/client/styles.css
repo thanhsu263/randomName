@@ -763,3 +763,122 @@ body.reduce-motion .result-bag.shake {
 body.reduce-motion .card {
   animation-duration: 0.01s;
 }
+
+/* ---------- Màn loading (chờ server) ---------- */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+.loading-overlay[hidden] {
+  display: none;
+}
+.loading-overlay.block {
+  pointer-events: auto; /* lớp chắn: nuốt mọi cú bấm trong lúc chờ */
+  cursor: progress;
+  background: rgba(10, 20, 40, 0.38);
+}
+.loading-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.9rem 2.2rem 1.1rem;
+  /* hiện dần sau 0,25 s để không nháy khi server trả lời rất nhanh (lớp chắn vẫn chặn bấm ngay từ đầu) */
+  animation: loading-in 0.25s ease 0.25s both;
+}
+.loading-svg {
+  width: 7.5rem;
+  height: auto;
+  overflow: visible;
+}
+.loading-burst {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: loading-spin 2.4s linear infinite, loading-pulse 0.9s ease-in-out infinite;
+}
+.loading-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: loading-bounce 0.9s ease-in-out infinite;
+}
+.loading-dot.d1 {
+  animation-delay: 0.15s;
+}
+.loading-dot.d2 {
+  animation-delay: 0.3s;
+}
+.loading-text {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.5rem;
+  line-height: 1.3;
+  color: var(--ink);
+}
+.loading-text::after {
+  content: '';
+  display: inline-block;
+  width: 1.2em;
+  text-align: left;
+  animation: loading-ellipsis 1.2s steps(4, end) infinite;
+}
+@keyframes loading-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes loading-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes loading-pulse {
+  50% {
+    scale: 1.1;
+  }
+}
+@keyframes loading-bounce {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  40% {
+    translate: 0 -14px;
+  }
+}
+@keyframes loading-ellipsis {
+  0% {
+    content: '';
+  }
+  25% {
+    content: '.';
+  }
+  50% {
+    content: '..';
+  }
+  75%,
+  100% {
+    content: '...';
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .loading-burst,
+  .loading-dot {
+    animation: none;
+  }
+  .loading-box {
+    animation-duration: 0.01s;
+  }
+}
+body.reduce-motion .loading-burst,
+body.reduce-motion .loading-dot {
+  animation: none;
+}
