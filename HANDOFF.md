@@ -41,7 +41,7 @@ Mốc theo đặc tả gốc: M1–M4 xong. M5 (asset thật, âm thanh, polish)
   - `Obstacles.ts`: anchor, scale và hitbox theo manifest. `aim.x` là vị trí mép trái hitbox.
   - `fx.ts`: sprite nhiều khung, starburst, overlay vệt tốc độ.
   - HUD (`scenes.ts`): thanh thời gian ghép từ `ui_scroll` (nine-slice), `ui_scroll_fill`, `ui_scroll_marker`. Bảng đếm dùng `ui_button`.
-  - `config.ts`: `LANES [988,1010,1032]`, `SMURF_SCALE 0.95` (kid ≈166 px), `GARG_SCALE 0.83` (wizard ≈390 px, ≈2.35 lần kid), `GARG_Y 1034`, `OBSTACLE_SCALE 0.5`, `LABEL_FONT_SIZE 38`, maxVisible mặc định **11** (trước là 14, giảm vì nhãn chồng nhau).
+  - `config.ts`: `LANES [988,1010,1032]`, `SMURF_SCALE 0.95` (kid ≈166 px), `GARG_SCALE 0.83` (wizard ≈390 px, ≈2.35 lần kid), `GARG_Y 1034`, `OBSTACLE_SCALE 0.5`, `LABEL_FONT_SIZE 38`, maxVisible mặc định **10** (trước là 14, giảm vì nhãn chồng nhau). Mặc định khác (2026-10-18): p = 5%, không loại trừ người đã gọi, tắt giảm chuyển động.
   - DOM: `ui/art.ts` có `spriteEl` / `setSpriteFrame` cắt frame bằng CSS. Setup dùng wizard_stomp và kid_run. Kết quả dùng sack_wriggle → sack_open, wizard_stomp, kid_pop trên thẻ. Gallery hiển thị asset thật.
 - **Lỗi canvas 0x0 / màn đen**: `GameHost` thêm ResizeObserver trên `#game`, chỉ refresh khi parent >0, và refresh lại sau khung hình khi `run()`. `nextFrame` có timeout 60 ms phòng khi rAF bị dừng. Đã kiểm ở 1920x1080, cửa sổ hẹp 557x849 và khi đổi cỡ giữa lượt.
 - Ảnh báo cáo: `docs/screenshots/01-dang-chay.jpg`, `02-luc-chop.jpg`, `03-thoat-tui.jpg`, `04-ket-qua.jpg`. Ảnh 04 chụp trước khi phóng to hình kid trên thẻ, nên chụp lại.

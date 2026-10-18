@@ -18,13 +18,13 @@ const KEY = 'sgu-gargamel-settings-v1';
 const defaults = (): Settings => ({
   classId: null,
   n: 1,
-  escapePct: 20,
+  escapePct: 5,
   durationMode: 'random',
   fixedSec: 45,
-  excludeCalled: true,
+  excludeCalled: false,
   sound: true,
-  reduceMotion: typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches,
-  maxVisible: 11,
+  reduceMotion: false,
+  maxVisible: 10,
   hideTimer: false,
 });
 

@@ -27,7 +27,7 @@ export const HERD_MIN = 850;
 export const HERD_MAX = 1830;
 /** Tốc độ cuộn nền cơ bản (px/s ở layer mặt đường). */
 export const BASE_SPEED = 520;
-export const DEFAULT_MAX_VISIBLE = 11;
+export const DEFAULT_MAX_VISIBLE = 10;
 
 export const LABEL_FONT_SIZE = 38;
 /** Băng rôn tên của làn xa được nâng cao hơn để không chồng lên làn gần (px mỗi làn). */

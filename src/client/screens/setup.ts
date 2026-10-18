@@ -150,7 +150,7 @@ export async function renderSetup(app: App) {
   reduce.addEventListener('change', () => ((s.reduceMotion = reduce.checked), update()));
   hideTimer.addEventListener('change', () => ((s.hideTimer = hideTimer.checked), update()));
   maxVis.addEventListener('change', () => {
-    s.maxVisible = Math.min(20, Math.max(6, Number(maxVis.value) || 11));
+    s.maxVisible = Math.min(20, Math.max(6, Number(maxVis.value) || 10));
     update();
   });
   go.addEventListener('click', () => void app.startDraw());
