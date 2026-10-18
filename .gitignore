@@ -5,3 +5,4 @@ data/*.db-*
 *.xapk
 .DS_Store
 .vercel
+data/pgdata

@@ -5,7 +5,6 @@
 // Chạy: npm run build:vercel
 import { build } from 'esbuild';
 import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
-import { createRequire } from 'node:module';
 
 const OUT = '.vercel/output';
 if (!existsSync('dist/public/index.html')) throw new Error('Chưa có dist/public — hãy chạy `vite build` trước');
@@ -15,8 +14,7 @@ mkdirSync(`${OUT}/functions/api.func`, { recursive: true });
 // 1) Tĩnh
 cpSync('dist/public', `${OUT}/static`, { recursive: true });
 
-// 2) Hàm API: bundle mọi thứ; dùng client libSQL bản "web" (HTTP thuần, không module native)
-const require = createRequire(import.meta.url);
+// 2) Hàm API: bundle mọi thứ (driver Neon là JS thuần qua HTTP). PGlite chỉ dùng khi chạy cục bộ → external, không nạp trên Vercel
 await build({
   entryPoints: ['src/vercel/handler.ts'],
   outfile: `${OUT}/functions/api.func/index.mjs`,
@@ -26,7 +24,7 @@ await build({
   target: 'node20',
   minify: true,
   sourcemap: false,
-  alias: { '@libsql/client': require.resolve('@libsql/client/web').replace(/\\/g, '/') },
+  external: ['@electric-sql/pglite'],
   // các thư viện CommonJS (fastify…) cần `require` khi nằm trong bundle ESM
   banner: { js: "import { createRequire as __cr } from 'node:module'; const require = __cr(import.meta.url);" },
   logLevel: 'info',

@@ -35,7 +35,8 @@ Mở terminal tại thư mục `F:\randomName`.
   npm start
   ```
   Mở http://localhost:3000. Bấm `Ctrl+C` trong terminal để tắt.
-  Dữ liệu lưu ở `data/app.db`, tách riêng với dữ liệu của bản Docker.
+  Dữ liệu lưu ở `data/pgdata` (PostgreSQL nhúng — PGlite), tách riêng với dữ liệu của bản Docker.
+  Dữ liệu của phiên bản cũ (file `data/app.db`) đã được chép sang; muốn chép lại: `npm run migrate:sqlite -- data/app.db --replace`.
 
 - **Chạy để phát triển** (sửa code thấy ngay):
   ```bash

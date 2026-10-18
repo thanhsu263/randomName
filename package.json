@@ -8,8 +8,9 @@
     "node": ">=20"
   },
   "dependencies": {
+    "@electric-sql/pglite": "^0.5.10",
     "@fastify/static": "^10.1.6",
-    "@libsql/client": "^0.18.0",
+    "@neondatabase/serverless": "^1.2.0",
     "fastify": "^5.12.7",
     "zod": "^4.6.7"
   },
@@ -47,6 +48,7 @@
     "format": "prettier --write .",
     "seed": "tsx scripts/seed.ts",
     "import:art": "node scripts/import-art.mjs",
-    "build:vercel": "vite build && node scripts/build-vercel.mjs"
+    "build:vercel": "vite build && node scripts/build-vercel.mjs",
+    "migrate:sqlite": "tsx scripts/migrate-sqlite.ts"
   }
 }

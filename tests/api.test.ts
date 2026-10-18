@@ -16,7 +16,7 @@ beforeEach(async () => {
 });
 afterEach(async () => {
   await app.close();
-  db.close();
+  await db.close();
 });
 
 const drawBody = { classId: 1, n: 5, escapeProb: 0.3, duration: { mode: 'random' }, excludeCalled: true };

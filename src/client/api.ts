@@ -29,7 +29,7 @@ export class ApiError extends Error {
   }
 }
 
-async function request<T>(method: string, url: string, body?: unknown, retry = true): Promise<T> {
+async function request<T>(method: string, url: string, body?: unknown, retry = true, attempt = 0): Promise<T> {
   const headers: Record<string, string> = {};
   if (body !== undefined) headers['content-type'] = 'application/json';
   const pw = getPw();
@@ -39,6 +39,11 @@ async function request<T>(method: string, url: string, body?: unknown, retry = t
     res = await fetch(url, { method, headers, body: body !== undefined ? JSON.stringify(body) : undefined });
   } catch {
     throw new ApiError(0, 'Không kết nối được máy chủ. Hãy kiểm tra server đang chạy.');
+  }
+  // server vừa khởi động (dev / cold start serverless): đợi chút rồi thử lại, chỉ với request đọc
+  if ((res.status === 502 || res.status === 503) && method === 'GET' && attempt < 6) {
+    await new Promise((r) => setTimeout(r, 700));
+    return request<T>(method, url, body, retry, attempt + 1);
   }
   if (res.status === 401 && retry) {
     const entered = await promptPassword(pw ? 'Mật khẩu chưa đúng, nhập lại:' : 'Nhập mật khẩu giảng viên:');

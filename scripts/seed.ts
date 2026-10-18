@@ -1,5 +1,5 @@
 // Tạo lớp mẫu 40 SV.  Dùng: npm run seed  [-- --force]
-// CSDL theo biến môi trường giống server: TURSO_DATABASE_URL (+ TURSO_AUTH_TOKEN) hoặc DB_PATH.
+// CSDL theo biến môi trường giống server: DATABASE_URL (Neon) hoặc PGLITE_DIR (mặc định data/pgdata).
 import { dbConfigFromEnv, openDb } from '../src/server/db';
 import { Repo } from '../src/server/repo';
 import { sampleRoster, SAMPLE_CLASS_NAME } from '../src/server/sampleData';
@@ -15,4 +15,4 @@ if (await repo.seedIfEmpty()) {
 } else {
   console.log('CSDL đã có dữ liệu. Dùng "npm run seed -- --force" để tạo thêm một lớp mẫu.');
 }
-db.close();
+await db.close();

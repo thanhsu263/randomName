@@ -8,7 +8,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const portArg = process.argv.find((a) => a.startsWith('--port='));
 const port = Number(portArg ? portArg.slice(7) : (process.env.PORT ?? 3000));
 const host = process.env.HOST ?? '127.0.0.1';
-// CSDL: TURSO_DATABASE_URL (+ TURSO_AUTH_TOKEN) nếu có, ngược lại file SQLite DB_PATH (mặc định data/app.db)
+// CSDL: Neon nếu có DATABASE_URL, ngược lại PGlite lưu ở PGLITE_DIR (mặc định data/pgdata)
 const db = await openDb(dbConfigFromEnv());
 if (await new Repo(db).seedIfEmpty()) console.log('[db] Đã tạo lớp mẫu 40 sinh viên');
 
@@ -33,7 +33,7 @@ app
 
 const shutdown = () => {
   app.close().finally(() => {
-    db.close();
+    void db.close();
     process.exit(0);
   });
 };

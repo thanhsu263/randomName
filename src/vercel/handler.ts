@@ -1,6 +1,6 @@
 // Vercel Function: chạy toàn bộ REST API (Fastify) trong 1 hàm serverless.
 // Được đóng gói thành .vercel/output/functions/api.func/index.mjs bởi scripts/build-vercel.mjs.
-// CSDL: Turso (TURSO_DATABASE_URL + TURSO_AUTH_TOKEN). Giao diện tĩnh do Vercel CDN phục vụ.
+// CSDL: Neon Postgres (DATABASE_URL — Vercel tự thêm khi cài Neon từ Marketplace). Giao diện tĩnh do Vercel CDN phục vụ.
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { FastifyInstance } from 'fastify';
 import { buildApp } from '../server/app';
@@ -12,7 +12,7 @@ let appPromise: Promise<FastifyInstance> | null = null;
 /** Khởi tạo 1 lần cho mỗi instance (cold start), dùng lại ở các request sau. */
 function getApp(): Promise<FastifyInstance> {
   appPromise ??= (async () => {
-    if (!process.env.TURSO_DATABASE_URL) throw new Error('Thiếu biến môi trường TURSO_DATABASE_URL');
+    if (!process.env.DATABASE_URL && !process.env.POSTGRES_URL) throw new Error('Thiếu biến môi trường DATABASE_URL (Neon)');
     const db = await openDb(dbConfigFromEnv());
     if (process.env.SEED_SAMPLE !== '0') await new Repo(db).seedIfEmpty();
     const app = buildApp({ db, adminPassword: process.env.ADMIN_PASSWORD });

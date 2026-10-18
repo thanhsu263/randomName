@@ -28,7 +28,9 @@ npm start
 
 `npm start` chạy `node dist/server.js`, một process phục vụ cả API lẫn giao diện. Mở http://localhost:3000.
 
-Lần đầu chạy, server tự tạo CSDL SQLite ở `data/app.db` kèm một lớp mẫu 40 sinh viên. Dùng `npm run seed -- --force` để tạo thêm một lớp mẫu.
+Lần đầu chạy, server tự tạo CSDL PostgreSQL nhúng (PGlite) ở `data/pgdata` kèm một lớp mẫu 40 sinh viên. Dùng `npm run seed -- --force` để tạo thêm một lớp mẫu.
+
+Nếu đang có dữ liệu từ phiên bản cũ (file SQLite `data/app.db`), chép sang bằng `npm run migrate:sqlite`.
 
 ### Biến môi trường
 
@@ -36,8 +38,8 @@ Lần đầu chạy, server tự tạo CSDL SQLite ở `data/app.db` kèm một 
 |---|---|---|
 | `PORT` | `3000` | Cổng server |
 | `HOST` | `127.0.0.1` | Đặt `0.0.0.0` để máy khác trong mạng truy cập được |
-| `DB_PATH` | `data/app.db` | Đường dẫn file SQLite |
-| `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN` | trống | Dùng CSDL Turso (SQLite trên mạng) thay cho file. Bắt buộc khi chạy trên Vercel. |
+| `PGLITE_DIR` | `data/pgdata` | Thư mục lưu CSDL PGlite khi chạy trên máy/Docker |
+| `DATABASE_URL` | trống | Chuỗi kết nối Neon Postgres. Có biến này thì dùng Neon thay cho PGlite. Bắt buộc khi chạy trên Vercel. |
 | `ADMIN_PASSWORD` | trống | Nếu đặt, mọi thao tác ghi (tạo lớp, nhập danh sách, gọi tên…) đều hỏi mật khẩu giảng viên |
 | `LOG` | trống | Đặt `1` để bật log request |
 
@@ -76,7 +78,7 @@ Lệnh này chép asset sang `public/assets/` và **sinh lại** `public/assets/
 
 ## Deploy lên Vercel
 
-Xem [DEPLOY.md](DEPLOY.md): giao diện chạy trên CDN của Vercel, API chạy trong 1 Vercel Function, CSDL là Turso. Build bằng `npm run build:vercel`.
+Xem [DEPLOY.md](DEPLOY.md): giao diện chạy trên CDN của Vercel, API chạy trong 1 Vercel Function, CSDL là Neon Postgres. Build bằng `npm run build:vercel`.
 
 ## Triển khai bằng Docker
 
@@ -91,7 +93,8 @@ docker run -p 3000:3000 -v sgu-data:/app/data -e ADMIN_PASSWORD=doimatkhau sgu-g
 ## Cấu trúc thư mục
 
 ```
-src/server   Fastify, SQLite (better-sqlite3), routes, migrations
+src/server   Fastify, PostgreSQL (Neon / PGlite), routes, migrations
+src/vercel   Vercel Function bọc Fastify
 src/shared   kiểu dữ liệu, RNG ChaCha20, thuật toán & event script, đọc danh sách
 src/client   giao diện (screens/, ui/, audio/) và game Phaser 3 (game/)
 public/assets  asset đã nhập + manifest.json

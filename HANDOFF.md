@@ -20,7 +20,7 @@ Mốc theo đặc tả gốc: M1–M4 xong. M5 (asset thật, âm thanh, polish)
 
 ## 2. Kiến trúc (đã có)
 
-- **Server** `src/server/`: Fastify + better-sqlite3 + zod. `app.ts` chứa routes, `repo.ts` truy cập DB, `db.ts` migrations, `sampleData.ts` lớp mẫu 40 SV. Server tự sinh seed (crypto) và kịch bản rồi lưu. `ADMIN_PASSWORD` bảo vệ route ghi qua header `x-admin-password`. Dev chạy cổng 3000 (`--port=3000`), Vite chạy 5173 và proxy `/api/`.
+- **Server** `src/server/`: Fastify + PostgreSQL (Neon khi có `DATABASE_URL`, PGlite khi chạy trên máy) + zod. `app.ts` chứa routes, `repo.ts` truy cập DB, `db.ts` migrations, `sampleData.ts` lớp mẫu 40 SV. Server tự sinh seed (crypto) và kịch bản rồi lưu. `ADMIN_PASSWORD` bảo vệ route ghi qua header `x-admin-password`. Dev chạy cổng 3000 (`--port=3000`), Vite chạy 5173 và proxy `/api/`.
 - **Shared** `src/shared/`: `rng.ts` (ChaCha20 + Noise1D), `script.ts` (thuật toán công bằng + event script + `verifyScript`), `roster.ts` (đọc CSV/XLSX/text, nhãn tên trùng thì thêm 2 số cuối MSSV), `types.ts`.
 - **Client** `src/client/`: `app.ts` điều phối màn hình. `screens/` gồm setup, result, history, importDialog. `audio/AudioManager.ts` phát nhạc MP3 gốc và tổng hợp SFX bằng WebAudio. `ui/` gồm dom, modal, art.ts (cắt frame bằng CSS) và gallery.ts (`/?gallery`).
 - **Game** `src/client/game/`: `GameHost.ts`, `scenes.ts` (Boot, Chase, HUD), `Director.ts` (biến kịch bản thành cue), `actors/Smurf.ts`, `actors/Gargamel.ts`, `world/Parallax.ts`, `world/Obstacles.ts`, `fx.ts`, `assets.ts` (registry + fallback thủ tục), `config.ts`, `art/*` (bản vẽ thủ tục, chỉ dùng làm fallback).
@@ -51,17 +51,21 @@ Mốc theo đặc tả gốc: M1–M4 xong. M5 (asset thật, âm thanh, polish)
 - `Settings.hideTimer` (mặc định `false`) có ô tích ở màn Setup. Giá trị được truyền qua `ChaseData.hideTimer` → `HudData.hideTimer`.
 - HUD ghi lại các đối tượng tạo từ đầu `create()` tới `timeText` (cuộn giấy, thanh đầy, nấm đánh dấu, chữ "còn … giây"), ẩn chúng, rồi tháo tham chiếu `fill`/`marker`/`bar` để `update()` bỏ qua. Bảng "Đã bắt x/N" vẫn hiện. Logic cũ không đổi.
 
-## 3c. Chuyển sang Vercel + Turso (2026-10-18)
+## 3c. Chuyển sang Vercel + Neon (2026-10-18)
 
-- Thay `better-sqlite3` bằng `@libsql/client`. `db.ts` mở `file:` cục bộ, `:memory:`, hoặc Turso (`TURSO_DATABASE_URL` + `TURSO_AUTH_TOKEN`), xem `dbConfigFromEnv()`. Migration chạy lặp lại an toàn (bảng `schema_version`), và tương thích file DB cũ.
-- `repo.ts` chuyển hết sang async. Thao tác nhiều câu chạy bằng `db.batch(..., 'write')`. `startOfTodayVN()` tính "buổi mới mỗi ngày" theo giờ Việt Nam, không theo múi giờ máy chủ.
-- `src/vercel/handler.ts` là Vercel Function bọc Fastify (route `/api/*` → `/api?__p=*`, hàm `restoreUrl` khôi phục URL gốc).
-- `scripts/build-vercel.mjs` (lệnh `npm run build:vercel`) tạo `.vercel/output` theo Build Output API v3, bundle API bằng `@libsql/client/web` (không module native). `vercel.json` khai báo lệnh build.
-- Đã kiểm thử: bundle chạy với libsql-server cục bộ (Docker) qua HTTP; bản `npm start` đọc được `data/app.db` cũ; Docker image chạy được. **Chưa deploy thật lên Vercel/Turso** vì cần tài khoản của chủ dự án; làm theo DEPLOY.md.
+- CSDL đổi sang **PostgreSQL** cho mọi môi trường. `db.ts` có 2 driver cùng giao diện `query()` / `batch()`:
+  - **Neon**: `@neondatabase/serverless` qua HTTP, dùng khi có `DATABASE_URL` (Vercel Marketplace tự thêm).
+  - **PGlite**: Postgres nhúng (WASM) lưu ở `PGLITE_DIR`, mặc định `data/pgdata`. Dùng khi chạy trên máy, trong Docker và trong test (`':memory:'`).
+  - Migration chạy lặp lại an toàn, có khoá `pg_advisory_xact_lock` vì nhiều instance serverless có thể khởi động cùng lúc. Biến `NEON_HTTP_ENDPOINT` chỉ dùng khi kiểm thử với proxy HTTP cục bộ của Neon.
+- `repo.ts` viết lại bằng SQL Postgres (`$1`, `GREATEST`, `RETURNING`, `jsonb_to_recordset`, CTE ghi lượt gọi + kết quả trong 1 câu lệnh). Xoá lớp dựa vào `ON DELETE CASCADE`. `startOfTodayVN()` tính buổi học theo giờ Việt Nam.
+- `src/vercel/handler.ts` là Vercel Function bọc Fastify. `scripts/build-vercel.mjs` (lệnh `npm run build:vercel`) tạo `.vercel/output` theo Build Output API v3; PGlite để external nên không nạp trên Vercel. `vercel.json` khai báo lệnh build.
+- `scripts/migrate-sqlite.ts` (lệnh `npm run migrate:sqlite`) chép dữ liệu từ file SQLite cũ sang Neon/PGlite, giữ nguyên id và đặt lại bộ đếm id. Dữ liệu cục bộ đã được chép sang `data/pgdata`; file `data/app.db` vẫn giữ nguyên.
+- Client tự thử lại các request GET khi server trả 502/503 lúc mới khởi động.
+- Đã kiểm thử: 24 test trên PGlite; bundle Vercel chạy với Postgres 17 thật qua proxy HTTP của Neon (đủ các route, upsert, xoá kéo theo, migration, chuyển dữ liệu); `npm start` và Docker chạy được với PGlite. **Chưa deploy thật lên Vercel/Neon**, vì cần tài khoản của chủ dự án; làm theo DEPLOY.md.
 
 ## 4. VIỆC CÒN LẠI
 
-1. (Đã xong) Docker: image build và chạy được. Stage build cài python3/make/g++ để biên dịch better-sqlite3. Lúc build cần mạng vì `xlsx` tải từ cdn.sheetjs.com.
+1. (Đã xong) Docker: image build và chạy được với PGlite (không còn module native phải biên dịch). Lúc build cần mạng vì `xlsx` tải từ cdn.sheetjs.com. Dữ liệu cũ trong volume `sgu-data` (file app.db) không tự chuyển: dùng `docker cp` lấy file ra rồi chạy `npm run migrate:sqlite`.
 2. Kiểm tra thủ công khi pane trình duyệt hiển thị thật: âm thanh, phím Space/S/M/F, toàn màn hình, phát lại từ màn Lịch sử, nút "Gọi tiếp".
 3. Chờ model vẽ `wizard_run_full` (xem mục 6). Khi có file thì thêm vào `import-art.mjs` và cho `renderBagInHand` dùng sheet đó thay cho việc đè túi.
 4. Tuỳ chọn polish: nhãn tên vẫn hơi dày khi nhiều người chạy sát nhau.
