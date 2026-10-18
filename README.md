@@ -50,7 +50,7 @@ Nếu đang có dữ liệu từ phiên bản cũ (file SQLite `data/app.db`), c
 3. **Màn Kết quả** có các nút: sao chép danh sách, gọi tiếp, gọi lại từ đầu (bắt đầu buổi mới), xem lịch sử, xem lại lượt vừa gọi.
 4. **Lịch sử**: mỗi lượt cũ có thể phát lại hoặc **Kiểm chứng**. Kiểm chứng sinh lại kịch bản từ seed ngay trong trình duyệt và so với bản đã lưu.
 
-Tùy chọn **Ẩn thanh thời gian** ở màn Setup (mặc định tắt) giấu thanh tiến trình và số giây còn lại trong lúc rượt đuổi. Nhờ vậy, khi sắp hết giờ mà chưa bắt đủ người, khán giả không đoán được ai sắp bị bắt.
+Tùy chọn **Ẩn thanh thời gian** ở màn Setup (mặc định bật) giấu thanh tiến trình và số giây còn lại trong lúc rượt đuổi. Nhờ vậy, khi sắp hết giờ mà chưa bắt đủ người, khán giả không đoán được ai sắp bị bắt.
 
 Phím tắt: `Space` bắt đầu hoặc gọi tiếp, `S` bỏ qua, `M` bật/tắt âm thanh, `F` toàn màn hình.
 

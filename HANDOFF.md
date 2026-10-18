@@ -48,7 +48,7 @@ Mốc theo đặc tả gốc: M1–M4 xong. M5 (asset thật, âm thanh, polish)
 
 ## 3b. Tính năng thêm 2026-10-18: ẩn thanh thời gian
 
-- `Settings.hideTimer` (mặc định `false`) có ô tích ở màn Setup. Giá trị được truyền qua `ChaseData.hideTimer` → `HudData.hideTimer`.
+- `Settings.hideTimer` (mặc định `true`) có ô tích ở màn Setup. Giá trị được truyền qua `ChaseData.hideTimer` → `HudData.hideTimer`.
 - HUD ghi lại các đối tượng tạo từ đầu `create()` tới `timeText` (cuộn giấy, thanh đầy, nấm đánh dấu, chữ "còn … giây"), ẩn chúng, rồi tháo tham chiếu `fill`/`marker`/`bar` để `update()` bỏ qua. Bảng "Đã bắt x/N" vẫn hiện. Logic cũ không đổi.
 
 ## 3c. Chuyển sang Vercel + Neon (2026-10-18)

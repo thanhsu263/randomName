@@ -25,7 +25,7 @@ const defaults = (): Settings => ({
   sound: true,
   reduceMotion: false,
   maxVisible: 10,
-  hideTimer: false,
+  hideTimer: true,
 });
 
 export function loadSettings(): Settings {
