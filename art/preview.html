@@ -1,0 +1,14 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+html,body{margin:0;overflow:hidden}
+body{width:3840px;height:1080px;position:relative}
+div{position:absolute;inset:0;background-repeat:repeat-x;background-size:1920px 540px}
+.a{background-position:0 0}
+.b{top:540px;height:540px;background-position:960px 0}
+</style>
+</head><body>
+<!-- top half: one tile per 1920px; bottom half: shifted by half a tile so the seam sits mid-screen -->
+<div class="a" style="height:540px;background-image:url(sgu_bg_L4.png),url(sgu_bg_L3.png),url(sgu_bg_L2.png),url(sgu_bg_L1.png),url(sgu_bg_L0.png)"></div>
+<div class="b" style="background-image:url(sgu_bg_L4.png),url(sgu_bg_L3.png),url(sgu_bg_L2.png),url(sgu_bg_L1.png),url(sgu_bg_L0.png)"></div>
+</body></html>

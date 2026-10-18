@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<defs><filter id="wobble" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
+<g transform="translate(0 0)"><g filter="url(#wobble)">
+<rect x="80" y="200" width="360" height="140" rx="22" fill="#000000" opacity="0.18"/>
+<rect x="76" y="186" width="360" height="140" rx="22" fill="#c58b4e" stroke="#2b1d14" stroke-width="6"/>
+<rect x="88" y="198" width="336" height="116" rx="14" fill="none" stroke="#9c6a36" stroke-width="4"/>
+<path d="M100 232 Q196 226 276 234 Q356 240 412 232" fill="none" stroke="#9c6a36" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M100 278 Q196 272 276 280 Q356 286 412 278" fill="none" stroke="#9c6a36" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M136 212 q20 -4 40 0 M326 302 q20 4 40 0" fill="none" stroke="#dda56a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="104.0" cy="214.0" r="7.0" fill="#8e979e" stroke="#2b1d14" stroke-width="3" />
+<circle cx="102.0" cy="212.0" r="2.5" fill="#b9c1c7" stroke="none" />
+<circle cx="408.0" cy="214.0" r="7.0" fill="#8e979e" stroke="#2b1d14" stroke-width="3" />
+<circle cx="406.0" cy="212.0" r="2.5" fill="#b9c1c7" stroke="none" />
+<circle cx="104.0" cy="298.0" r="7.0" fill="#8e979e" stroke="#2b1d14" stroke-width="3" />
+<circle cx="102.0" cy="296.0" r="2.5" fill="#b9c1c7" stroke="none" />
+<circle cx="408.0" cy="298.0" r="7.0" fill="#8e979e" stroke="#2b1d14" stroke-width="3" />
+<circle cx="406.0" cy="296.0" r="2.5" fill="#b9c1c7" stroke="none" />
+</g></g>
+</svg>

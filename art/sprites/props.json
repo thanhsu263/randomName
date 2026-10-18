@@ -1,0 +1,138 @@
+{
+ "frame": 512,
+ "groundY": 500,
+ "note": "obstacle hitbox is x, y, w, h in canvas pixels; ground objects are drawn at the same pixel scale as the kid and wizard sprites",
+ "assets": {
+  "sack_idle": {
+   "frames": 1,
+   "fps": 10,
+   "loop": false,
+   "anchor": "bottom-center"
+  },
+  "sack_wriggle": {
+   "frames": 6,
+   "fps": 10,
+   "loop": true,
+   "anchor": "bottom-center"
+  },
+  "sack_open": {
+   "frames": 4,
+   "fps": 10,
+   "loop": false,
+   "anchor": "bottom-center"
+  },
+  "obj_root": {
+   "frames": 1,
+   "anchor": "bottom-center",
+   "hitbox": {
+    "x": 126.0,
+    "y": 350,
+    "w": 260,
+    "h": 150
+   }
+  },
+  "obj_rock": {
+   "frames": 1,
+   "anchor": "bottom-center",
+   "hitbox": {
+    "x": 161.0,
+    "y": 380,
+    "w": 190,
+    "h": 120
+   }
+  },
+  "obj_mushroom": {
+   "frames": 1,
+   "anchor": "bottom-center",
+   "hitbox": {
+    "x": 204.0,
+    "y": 396,
+    "w": 104,
+    "h": 104
+   }
+  },
+  "obj_puddle": {
+   "frames": 1,
+   "anchor": "bottom-center",
+   "hitbox": {
+    "x": 141.0,
+    "y": 470,
+    "w": 230,
+    "h": 30
+   }
+  },
+  "obj_bucket": {
+   "frames": 1,
+   "anchor": "bottom-center",
+   "hitbox": {
+    "x": 161.0,
+    "y": 375,
+    "w": 190,
+    "h": 125
+   }
+  },
+  "obj_post": {
+   "frames": 1,
+   "anchor": "bottom-center",
+   "hitbox": {
+    "x": 118.0,
+    "y": 442,
+    "w": 270,
+    "h": 58
+   }
+  },
+  "ui_scroll": {
+   "frames": 1,
+   "track": {
+    "x": 84,
+    "y": 238,
+    "w": 344,
+    "h": 36
+   }
+  },
+  "ui_scroll_fill": {
+   "frames": 1,
+   "track": {
+    "x": 84,
+    "y": 238,
+    "w": 344,
+    "h": 36
+   }
+  },
+  "ui_scroll_marker": {
+   "frames": 1
+  },
+  "ui_button": {
+   "frames": 1,
+   "label": {
+    "x": 96,
+    "y": 206,
+    "w": 320,
+    "h": 100
+   }
+  },
+  "ui_button_pressed": {
+   "frames": 1,
+   "label": {
+    "x": 96,
+    "y": 216,
+    "w": 320,
+    "h": 100
+   }
+  },
+  "fx_starburst": {
+   "frames": 1
+  },
+  "fx_dust": {
+   "frames": 4,
+   "fps": 12,
+   "loop": false,
+   "anchor": "bottom-center"
+  },
+  "fx_speedlines": {
+   "frames": 3,
+   "fps": 12,
+   "loop": true
+  }
+ }
+}

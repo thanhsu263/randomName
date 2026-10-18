@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<defs><filter id="wobble" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
+<g transform="translate(0 0)"><g filter="url(#wobble)">
+<g transform="translate(256.0 500)">
+<ellipse cx="0.0" cy="4.0" rx="96.0" ry="10.0" fill="#000000" stroke="none" opacity="0.12"/>
+<path d="M-92 4 Q-104 -56 -60 -92 Q-10 -122 44 -104 Q96 -84 96 -30 Q98 0 86 4 Z" fill="#a3a7ab" stroke="#2b1d14" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M-60 -84 Q-20 -110 30 -100 Q-6 -90 -30 -70 Q-50 -60 -60 -84 Z" fill="#c4c8cb" stroke="none" />
+<path d="M60 -80 Q90 -50 84 0 L60 0 Q74 -40 60 -80 Z" fill="#7f848a" stroke="none" />
+<path d="M-20 -40 L4 -60 L30 -52 M-60 -20 L-40 -34" fill="none" stroke="#7f848a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M-70 -88 Q-20 -126 40 -106 Q70 -94 76 -76 Q60 -84 50 -70 Q44 -54 34 -68 Q10 -84 -6 -70 Q-16 -50 -24 -72 Q-46 -80 -56 -64 Q-64 -50 -70 -66 Z" fill="#6fae3c" stroke="#2b1d14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M-50 -96 Q-10 -114 30 -104" fill="none"  stroke="#4f8a2a" stroke-width="4" stroke-linecap="round"/>
+<circle cx="-100.0" cy="-2.0" r="9.0" fill="#c4c8cb" stroke="#2b1d14" stroke-width="3" />
+<circle cx="110.0" cy="-2.0" r="7.0" fill="#c4c8cb" stroke="#2b1d14" stroke-width="3" />
+<circle cx="-118.0" cy="0.0" r="5.0" fill="#c4c8cb" stroke="#2b1d14" stroke-width="3" />
+<path d="M-90.0 4 q3 -16 7 0 q4 -22 8 0 q4 -16 7 0" fill="none" stroke="#5ea43a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M60.0 4 q3 -16 7 0 q4 -22 8 0 q4 -16 7 0" fill="none" stroke="#5ea43a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g></g>
+</svg>

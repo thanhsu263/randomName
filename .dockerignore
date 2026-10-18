@@ -1,0 +1,10 @@
+node_modules
+dist
+data
+*.xapk
+reference
+art
+docs
+*.jpg
+*.webp
+.claude

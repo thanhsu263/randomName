@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2048" height="512" viewBox="0 0 2048 512">
+<defs><filter id="wobble" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
+<g transform="translate(0 0)"><g filter="url(#wobble)">
+<g opacity="1">
+<circle cx="224.0" cy="465.1" r="16.3" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="219.1" cy="460.2" r="6.5" fill="#ffffff" stroke="none" />
+<circle cx="230.1" cy="456.5" r="17.6" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="224.8" cy="451.2" r="7.0" fill="#ffffff" stroke="none" />
+<circle cx="246.1" cy="451.4" r="17.7" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="240.8" cy="446.1" r="7.1" fill="#ffffff" stroke="none" />
+<circle cx="265.9" cy="452.5" r="14.0" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="261.7" cy="448.3" r="5.6" fill="#ffffff" stroke="none" />
+<circle cx="281.9" cy="457.8" r="13.1" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="278.0" cy="453.9" r="5.2" fill="#ffffff" stroke="none" />
+<circle cx="288.0" cy="465.3" r="15.6" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="283.3" cy="460.6" r="6.2" fill="#ffffff" stroke="none" />
+</g>
+</g></g>
+<g transform="translate(512 0)"><g filter="url(#wobble)">
+<g opacity="1">
+<circle cx="182.4" cy="461.7" r="27.7" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="174.1" cy="453.4" r="11.1" fill="#ffffff" stroke="none" />
+<circle cx="196.5" cy="442.1" r="29.9" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="187.5" cy="433.1" r="12.0" fill="#ffffff" stroke="none" />
+<circle cx="233.3" cy="430.4" r="30.0" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="224.2" cy="421.4" r="12.0" fill="#ffffff" stroke="none" />
+<circle cx="278.7" cy="432.2" r="23.8" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="271.6" cy="425.1" r="9.5" fill="#ffffff" stroke="none" />
+<circle cx="315.5" cy="444.4" r="22.2" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="308.9" cy="437.7" r="8.9" fill="#ffffff" stroke="none" />
+<circle cx="329.6" cy="462.0" r="26.6" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="321.6" cy="454.1" r="10.6" fill="#ffffff" stroke="none" />
+</g>
+</g></g>
+<g transform="translate(1024 0)"><g filter="url(#wobble)">
+<g opacity="0.85">
+<circle cx="144.0" cy="459.7" r="34.3" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="133.7" cy="449.4" r="13.7" fill="#ffffff" stroke="none" />
+<circle cx="165.4" cy="430.1" r="37.0" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="154.3" cy="419.0" r="14.8" fill="#ffffff" stroke="none" />
+<circle cx="221.4" cy="412.3" r="37.1" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="210.3" cy="401.1" r="14.8" fill="#ffffff" stroke="none" />
+<circle cx="290.6" cy="414.6" r="29.4" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="281.8" cy="405.8" r="11.8" fill="#ffffff" stroke="none" />
+<circle cx="346.6" cy="433.0" r="27.5" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="338.4" cy="424.7" r="11.0" fill="#ffffff" stroke="none" />
+<circle cx="368.0" cy="460.2" r="32.8" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="358.2" cy="450.3" r="13.1" fill="#ffffff" stroke="none" />
+</g>
+</g></g>
+<g transform="translate(1536 0)"><g filter="url(#wobble)">
+<g opacity="0.45">
+<circle cx="108.8" cy="462.2" r="26.1" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="101.0" cy="454.3" r="10.4" fill="#ffffff" stroke="none" />
+<circle cx="136.9" cy="423.7" r="28.2" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="128.5" cy="415.2" r="11.3" fill="#ffffff" stroke="none" />
+<circle cx="210.5" cy="400.3" r="28.3" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="202.0" cy="391.8" r="11.3" fill="#ffffff" stroke="none" />
+<circle cx="301.5" cy="402.0" r="22.4" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="294.8" cy="395.3" r="9.0" fill="#ffffff" stroke="none" />
+<circle cx="375.1" cy="425.9" r="20.9" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="368.8" cy="419.6" r="8.4" fill="#ffffff" stroke="none" />
+<circle cx="403.2" cy="462.5" r="25.0" fill="#efe3c8" stroke="#2b1d14" stroke-width="4.5" />
+<circle cx="395.7" cy="455.0" r="10.0" fill="#ffffff" stroke="none" />
+</g>
+</g></g>
+</svg>

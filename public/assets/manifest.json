@@ -1,0 +1,1135 @@
+{
+  "version": 1,
+  "_doc": "Asset thật: đặt file vào public/assets/... rồi điền 'path' (tương đối với /assets/). Mục có path=null dùng placeholder vẽ thủ tục. Sprite sheet: các khung vuông xếp lưới, nhân vật đứng giữa đáy khung, anchor (0.5,1). Có thể dùng atlas: thêm vào 'atlases' rồi đặt 'atlas' + 'prefix' cho sprite. headTrack/bodyTrack/handTrack: [x,y,rot] mỗi khung (toạ độ trong khung) nếu art thật khác tư thế chuẩn. Background bg_l0..bg_l4 (3840x1080, tile ngang) thay hẳn layer thủ tục tương ứng.",
+  "atlases": [],
+  "sprites": {
+    "smurf_run": {
+      "path": "sprites/kid_run.png",
+      "variants": {
+        "base": "sprites/kid_run.png",
+        "glasses": "sprites/kid_run_glasses.png",
+        "backpack": "sprites/kid_run_backpack.png",
+        "book": "sprites/kid_run_book.png",
+        "pencil": "sprites/kid_run_pencil.png"
+      },
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frames": 8,
+      "fps": 14,
+      "loop": true,
+      "anchor": [
+        0.5,
+        0.9765625
+      ],
+      "headTrack": [
+        [
+          144.5,
+          110.3,
+          0.2094
+        ],
+        [
+          144.5,
+          102.3,
+          0.2094
+        ],
+        [
+          144.5,
+          104.6,
+          0.2094
+        ],
+        [
+          144.5,
+          118.4,
+          0.2094
+        ],
+        [
+          144.5,
+          110.3,
+          0.2094
+        ],
+        [
+          144.5,
+          102.3,
+          0.2094
+        ],
+        [
+          144.5,
+          104.6,
+          0.2094
+        ],
+        [
+          144.5,
+          118.4,
+          0.2094
+        ]
+      ],
+      "labelOffset": [
+        0,
+        0
+      ],
+      "bakedHat": true,
+      "noTint": true
+    },
+    "smurf_trip": {
+      "path": "sprites/kid_trip.png",
+      "variants": {
+        "base": "sprites/kid_trip.png",
+        "glasses": "sprites/kid_trip_glasses.png",
+        "backpack": "sprites/kid_trip_backpack.png",
+        "book": "sprites/kid_trip_book.png",
+        "pencil": "sprites/kid_trip_pencil.png"
+      },
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frames": 6,
+      "fps": 10,
+      "loop": false,
+      "anchor": [
+        0.5,
+        0.9765625
+      ],
+      "headTrack": [
+        [
+          171.6,
+          121.7,
+          0.4363
+        ],
+        [
+          186.8,
+          145.3,
+          0.7854
+        ],
+        [
+          187.2,
+          184,
+          1.1868
+        ],
+        [
+          180,
+          201,
+          1.5708
+        ],
+        [
+          180,
+          201,
+          1.5708
+        ],
+        [
+          180,
+          201,
+          1.5708
+        ]
+      ],
+      "labelOffset": [
+        0,
+        0
+      ],
+      "bakedHat": true,
+      "noTint": true
+    },
+    "smurf_getup": {
+      "path": "sprites/kid_getup.png",
+      "variants": {
+        "base": "sprites/kid_getup.png",
+        "glasses": "sprites/kid_getup_glasses.png",
+        "backpack": "sprites/kid_getup_backpack.png",
+        "book": "sprites/kid_getup_book.png",
+        "pencil": "sprites/kid_getup_pencil.png"
+      },
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frames": 4,
+      "fps": 8,
+      "loop": false,
+      "anchor": [
+        0.5,
+        0.9765625
+      ],
+      "headTrack": [
+        [
+          149.5,
+          153.2,
+          0.4363
+        ],
+        [
+          134.6,
+          122.1,
+          0.3142
+        ],
+        [
+          154,
+          111.6,
+          0.4189
+        ],
+        [
+          138.9,
+          103.9,
+          0.2094
+        ]
+      ],
+      "labelOffset": [
+        0,
+        0
+      ],
+      "bakedHat": true,
+      "noTint": true
+    },
+    "smurf_jump": {
+      "path": "sprites/kid_jump.png",
+      "variants": {
+        "base": "sprites/kid_jump.png",
+        "glasses": "sprites/kid_jump_glasses.png",
+        "backpack": "sprites/kid_jump_backpack.png",
+        "book": "sprites/kid_jump_book.png",
+        "pencil": "sprites/kid_jump_pencil.png"
+      },
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frames": 5,
+      "fps": 10,
+      "loop": false,
+      "anchor": [
+        0.5,
+        0.9765625
+      ],
+      "headTrack": [
+        [
+          166.9,
+          125,
+          0.5236
+        ],
+        [
+          143.8,
+          108.8,
+          0.2618
+        ],
+        [
+          135.7,
+          119.5,
+          0.1745
+        ],
+        [
+          127.4,
+          102,
+          0.0873
+        ],
+        [
+          159.5,
+          118.5,
+          0.4363
+        ]
+      ],
+      "labelOffset": [
+        0,
+        0
+      ],
+      "dyTrack": [
+        0,
+        -40,
+        -80,
+        -40,
+        0
+      ],
+      "bakedHat": true,
+      "noTint": true
+    },
+    "smurf_struggle": {
+      "path": "sprites/kid_struggle.png",
+      "variants": {
+        "base": "sprites/kid_struggle.png",
+        "glasses": "sprites/kid_struggle_glasses.png",
+        "backpack": "sprites/kid_struggle_backpack.png",
+        "book": "sprites/kid_struggle_book.png",
+        "pencil": "sprites/kid_struggle_pencil.png"
+      },
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frames": 4,
+      "fps": 10,
+      "loop": true,
+      "anchor": [
+        0.5,
+        0.9765625
+      ],
+      "headTrack": [
+        [
+          120,
+          102.2,
+          0.0873
+        ],
+        [
+          106,
+          103.2,
+          -0.1745
+        ],
+        [
+          127.4,
+          101.8,
+          0.0873
+        ],
+        [
+          114,
+          101.2,
+          -0.0524
+        ]
+      ],
+      "labelOffset": [
+        0,
+        0
+      ],
+      "gripTrack": [
+        [
+          99.5,
+          147.5
+        ],
+        [
+          99.5,
+          147.7
+        ],
+        [
+          108.6,
+          144.3
+        ],
+        [
+          101.3,
+          145.9
+        ]
+      ],
+      "bakedHat": true,
+      "noTint": true
+    },
+    "smurf_escape_pop": {
+      "path": "sprites/kid_pop.png",
+      "variants": {
+        "base": "sprites/kid_pop.png",
+        "glasses": "sprites/kid_pop_glasses.png",
+        "backpack": "sprites/kid_pop_backpack.png",
+        "book": "sprites/kid_pop_book.png",
+        "pencil": "sprites/kid_pop_pencil.png"
+      },
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frames": 5,
+      "fps": 10,
+      "loop": false,
+      "anchor": [
+        0.5,
+        0.9765625
+      ],
+      "headTrack": [
+        [
+          119,
+          103.8,
+          0
+        ],
+        [
+          133.7,
+          223.2,
+          2.9671
+        ],
+        [
+          86.1,
+          109.4,
+          -0.3491
+        ],
+        [
+          159.5,
+          118.5,
+          0.4363
+        ],
+        [
+          143.8,
+          106.3,
+          0.2618
+        ]
+      ],
+      "labelOffset": [
+        0,
+        0
+      ],
+      "dyTrack": [
+        -60,
+        -110,
+        -60,
+        0,
+        0
+      ],
+      "bakedHat": true,
+      "noTint": true
+    },
+    "gargamel_run": {
+      "path": "sprites/wizard_run.png",
+      "frameWidth": 512,
+      "frameHeight": 512,
+      "frames": 8,
+      "fps": 12,
+      "loop": true,
+      "anchor": [
+        0.5,
+        0.9765625
+      ],
+      "handTrack": [
+        [
+          413.2,
+          346.9,
+          -2.0944
+        ],
+        [
+          395.7,
+          350.5,
+          -1.7
+        ],
+        [
+          386.4,
+          363.2,
+          -1.5359
+        ],
+        [
+          395.7,
+          377.9,
+          -1.7
+        ],
+        [
+          413.2,
+          346.9,
+          -2.0944
+        ],
+        [
+          415,
+          296.1,
+          -2.4888
+        ],
+        [
+          405.1,
+          287.5,
+          -2.6529
+        ],
+        [
+          415,
+          339.2,
+          -2.4888
+        ]
+      ],
+      "sackRadius": 34,
+      "bagInHand": true
+    },
+    "gargamel_lunge": {
+      "path": "sprites/wizard_lunge.png",
+      "frameWidth": 512,
+      "frameHeight": 512,
+      "frames": 6,
+      "fps": 10,
+      "loop": false,
+      "anchor": [
+        0.5,
+        0.9765625
+      ],
+      "handTrack": [
+        [
+          182.5,
+          156.6,
+          -1.3963
+        ],
+        [
+          392.4,
+          279.8,
+          0.5236
+        ],
+        [
+          424.4,
+          438.9,
+          0
+        ],
+        [
+          355.1,
+          472,
+          1.2217
+        ],
+        [
+          355.1,
+          472,
+          1.2217
+        ],
+        [
+          355.1,
+          472,
+          1.2217
+        ]
+      ],
+      "sackRadius": 34,
+      "bagInHand": true,
+      "sackFull": [
+        4,
+        5
+      ],
+      "slamFrame": 4
+    },
+    "gargamel_miss_fall": {
+      "path": "sprites/wizard_fall.png",
+      "frameWidth": 512,
+      "frameHeight": 512,
+      "frames": 6,
+      "fps": 10,
+      "loop": false,
+      "anchor": [
+        0.5,
+        0.9765625
+      ],
+      "handTrack": [
+        [
+          355.1,
+          472,
+          1.2217
+        ],
+        [
+          288.2,
+          445.4,
+          1.8326
+        ],
+        [
+          346.1,
+          418.7,
+          2.4435
+        ],
+        [
+          366.9,
+          428.7,
+          1.85
+        ],
+        [
+          363.6,
+          431.9,
+          1.5708
+        ],
+        [
+          363.6,
+          431.9,
+          1.5708
+        ]
+      ],
+      "sackRadius": 34,
+      "bagInHand": true
+    },
+    "gargamel_angry": {
+      "path": "sprites/wizard_stomp.png",
+      "frameWidth": 512,
+      "frameHeight": 512,
+      "frames": 4,
+      "fps": 8,
+      "loop": true,
+      "anchor": [
+        0.5,
+        0.9765625
+      ],
+      "handTrack": [
+        [
+          383.9,
+          299.8,
+          -1.7453
+        ],
+        [
+          372.5,
+          337.9,
+          -1.2217
+        ],
+        [
+          386.7,
+          183.7,
+          -2.4435
+        ],
+        [
+          397.9,
+          303.1,
+          -1.0472
+        ]
+      ],
+      "sackRadius": 34,
+      "bagInHand": true
+    },
+    "bag_idle": {
+      "path": "sprites/sack_idle.png",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frames": 1,
+      "fps": 10,
+      "loop": false,
+      "anchor": [
+        0.5,
+        0.953125
+      ],
+      "grip": [
+        128,
+        43
+      ]
+    },
+    "bag_wriggle": {
+      "path": "sprites/sack_wriggle.png",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frames": 6,
+      "fps": 10,
+      "loop": true,
+      "anchor": [
+        0.5,
+        0.953125
+      ],
+      "grip": [
+        128,
+        35
+      ]
+    },
+    "bag_open": {
+      "path": "sprites/sack_open.png",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frames": 4,
+      "fps": 10,
+      "loop": false,
+      "anchor": [
+        0.5,
+        0.953125
+      ],
+      "grip": [
+        128,
+        38
+      ]
+    },
+    "fx_dust": {
+      "path": "fx/fx_dust.png",
+      "frameWidth": 512,
+      "frameHeight": 512,
+      "frames": 4,
+      "fps": 12,
+      "loop": false,
+      "anchor": [
+        0.5,
+        0.9765625
+      ]
+    },
+    "fx_star": {
+      "path": "fx/fx_starburst.png",
+      "frameWidth": 512,
+      "frameHeight": 512,
+      "frames": 1,
+      "fps": 12,
+      "loop": false,
+      "anchor": [
+        0.5,
+        0.5
+      ]
+    },
+    "fx_speed": {
+      "path": "fx/fx_speedlines.png",
+      "frameWidth": 512,
+      "frameHeight": 512,
+      "frames": 3,
+      "fps": 12,
+      "loop": true,
+      "anchor": [
+        0.5,
+        0.5
+      ]
+    }
+  },
+  "images": {
+    "smurf_hat": {
+      "path": null,
+      "width": 256,
+      "height": 256,
+      "anchor": [
+        0.5078,
+        0.4297
+      ]
+    },
+    "acc_glasses": {
+      "path": null,
+      "width": 256,
+      "height": 256,
+      "anchor": [
+        0.5078,
+        0.4297
+      ]
+    },
+    "acc_pencil": {
+      "path": null,
+      "width": 256,
+      "height": 256,
+      "anchor": [
+        0.5078,
+        0.4297
+      ]
+    },
+    "acc_backpack": {
+      "path": null,
+      "width": 256,
+      "height": 256,
+      "anchor": [
+        0.4766,
+        0.7266
+      ]
+    },
+    "acc_book": {
+      "path": null,
+      "width": 256,
+      "height": 256,
+      "anchor": [
+        0.4766,
+        0.7266
+      ]
+    },
+    "acc_badge": {
+      "path": null,
+      "width": 256,
+      "height": 256,
+      "anchor": [
+        0.4766,
+        0.7266
+      ]
+    },
+    "prop_sgu": {
+      "path": null,
+      "width": 1800,
+      "height": 840,
+      "anchor": [
+        0.5,
+        0.976
+      ]
+    },
+    "prop_banyan": {
+      "path": null,
+      "width": 600,
+      "height": 760,
+      "anchor": [
+        0.5,
+        1
+      ]
+    },
+    "prop_tree": {
+      "path": null,
+      "width": 380,
+      "height": 560,
+      "anchor": [
+        0.5,
+        1
+      ]
+    },
+    "prop_house_red": {
+      "path": null,
+      "width": 440,
+      "height": 480,
+      "anchor": [
+        0.5,
+        0.98
+      ]
+    },
+    "prop_house_blue": {
+      "path": null,
+      "width": 440,
+      "height": 480,
+      "anchor": [
+        0.5,
+        0.98
+      ]
+    },
+    "prop_house_orange": {
+      "path": null,
+      "width": 440,
+      "height": 480,
+      "anchor": [
+        0.5,
+        0.98
+      ]
+    },
+    "prop_house_pink": {
+      "path": null,
+      "width": 440,
+      "height": 480,
+      "anchor": [
+        0.5,
+        0.98
+      ]
+    },
+    "prop_fence": {
+      "path": null,
+      "width": 360,
+      "height": 140,
+      "anchor": [
+        0.5,
+        1
+      ]
+    },
+    "prop_bench": {
+      "path": null,
+      "width": 270,
+      "height": 120,
+      "anchor": [
+        0.5,
+        1
+      ]
+    },
+    "prop_well": {
+      "path": null,
+      "width": 260,
+      "height": 300,
+      "anchor": [
+        0.5,
+        1
+      ]
+    },
+    "prop_lamp": {
+      "path": null,
+      "width": 100,
+      "height": 360,
+      "anchor": [
+        0.5,
+        1
+      ]
+    },
+    "prop_bush": {
+      "path": null,
+      "width": 240,
+      "height": 140,
+      "anchor": [
+        0.5,
+        1
+      ]
+    },
+    "fg_grass": {
+      "path": null,
+      "width": 280,
+      "height": 170,
+      "anchor": [
+        0.5,
+        1
+      ]
+    },
+    "fg_flowers": {
+      "path": null,
+      "width": 240,
+      "height": 190,
+      "anchor": [
+        0.5,
+        1
+      ]
+    },
+    "fg_fern": {
+      "path": null,
+      "width": 320,
+      "height": 220,
+      "anchor": [
+        0.5,
+        1
+      ]
+    },
+    "fg_leaf": {
+      "path": null,
+      "width": 300,
+      "height": 240,
+      "anchor": [
+        0.5,
+        1
+      ]
+    },
+    "obs_root": {
+      "path": "obstacles/obj_root.png",
+      "width": 512,
+      "height": 512,
+      "anchor": [
+        0.5,
+        0.9765625
+      ],
+      "hitbox": [
+        126,
+        350,
+        260,
+        150
+      ]
+    },
+    "obs_rock": {
+      "path": "obstacles/obj_rock.png",
+      "width": 512,
+      "height": 512,
+      "anchor": [
+        0.5,
+        0.9765625
+      ],
+      "hitbox": [
+        161,
+        380,
+        190,
+        120
+      ]
+    },
+    "obs_mushroom": {
+      "path": "obstacles/obj_mushroom.png",
+      "width": 512,
+      "height": 512,
+      "anchor": [
+        0.5,
+        0.9765625
+      ],
+      "hitbox": [
+        204,
+        396,
+        104,
+        104
+      ]
+    },
+    "obs_puddle": {
+      "path": "obstacles/obj_puddle.png",
+      "width": 512,
+      "height": 512,
+      "anchor": [
+        0.5,
+        0.9765625
+      ],
+      "hitbox": [
+        141,
+        470,
+        230,
+        30
+      ]
+    },
+    "obs_bucket": {
+      "path": "obstacles/obj_bucket.png",
+      "width": 512,
+      "height": 512,
+      "anchor": [
+        0.5,
+        0.9765625
+      ],
+      "hitbox": [
+        161,
+        375,
+        190,
+        125
+      ]
+    },
+    "obs_post": {
+      "path": "obstacles/obj_post.png",
+      "width": 512,
+      "height": 512,
+      "anchor": [
+        0.5,
+        0.9765625
+      ],
+      "hitbox": [
+        118,
+        442,
+        270,
+        58
+      ]
+    },
+    "fx_sweat": {
+      "path": null,
+      "width": 34,
+      "height": 44
+    },
+    "fx_shadow": {
+      "path": null,
+      "width": 128,
+      "height": 32
+    },
+    "ui_scroll": {
+      "path": "ui/ui_scroll.png",
+      "width": 512,
+      "height": 512,
+      "bbox": [
+        20,
+        160,
+        471,
+        192
+      ],
+      "track": [
+        84,
+        238,
+        344,
+        36
+      ]
+    },
+    "ui_sign": {
+      "path": null,
+      "width": 480,
+      "height": 150
+    },
+    "bg_sky": {
+      "path": null,
+      "width": 8,
+      "height": 1080
+    },
+    "bg_clouds": {
+      "path": null,
+      "width": 2048,
+      "height": 420
+    },
+    "bg_hills": {
+      "path": null,
+      "width": 2048,
+      "height": 380
+    },
+    "bg_ground": {
+      "path": null,
+      "width": 512,
+      "height": 300
+    },
+    "ui_scroll_fill": {
+      "path": "ui/ui_scroll_fill.png",
+      "width": 512,
+      "height": 512,
+      "bbox": [
+        82,
+        236,
+        348,
+        40
+      ],
+      "track": [
+        84,
+        238,
+        344,
+        36
+      ]
+    },
+    "ui_scroll_marker": {
+      "path": "ui/ui_scroll_marker.png",
+      "width": 512,
+      "height": 512,
+      "bbox": [
+        176,
+        197,
+        156,
+        97
+      ]
+    },
+    "ui_button": {
+      "path": "ui/ui_button.png",
+      "width": 512,
+      "height": 512,
+      "bbox": [
+        73,
+        182,
+        367,
+        159
+      ],
+      "label": [
+        96,
+        206,
+        320,
+        100
+      ]
+    },
+    "ui_button_pressed": {
+      "path": "ui/ui_button_pressed.png",
+      "width": 512,
+      "height": 512,
+      "bbox": [
+        73,
+        192,
+        366,
+        148
+      ],
+      "label": [
+        96,
+        216,
+        320,
+        100
+      ]
+    }
+  },
+  "backgrounds": {
+    "bg_l0": {
+      "path": "bg/sgu_bg_L0.png",
+      "width": 3840,
+      "height": 1080,
+      "scroll": 0.06
+    },
+    "bg_l1": {
+      "path": "bg/sgu_bg_L1.png",
+      "width": 3840,
+      "height": 1080,
+      "scroll": 0.22
+    },
+    "bg_l2": {
+      "path": "bg/sgu_bg_L2.png",
+      "width": 3840,
+      "height": 1080,
+      "scroll": 0.55
+    },
+    "bg_l3": {
+      "path": "bg/sgu_bg_L3.png",
+      "width": 3840,
+      "height": 1080,
+      "scroll": 1
+    },
+    "bg_l4": {
+      "path": "bg/sgu_bg_L4.png",
+      "width": 3840,
+      "height": 1080,
+      "scroll": 1.45
+    }
+  },
+  "audio": {
+    "music_menu": {
+      "path": "audio/Menu_loop.mp3",
+      "loop": true,
+      "volume": 0.5
+    },
+    "music_forest": {
+      "path": "audio/Music_Forest.mp3",
+      "loop": true,
+      "volume": 0.55
+    },
+    "music_plain": {
+      "path": "audio/Music_Plain.mp3",
+      "loop": true,
+      "volume": 0.55
+    },
+    "music_mountain": {
+      "path": "audio/Music_Mountain.mp3",
+      "loop": true,
+      "volume": 0.55
+    },
+    "music_offgame": {
+      "path": "audio/Music_OffGame.mp3",
+      "loop": true,
+      "volume": 0.5
+    },
+    "music_ice": {
+      "path": "audio/Music_Ice.mp3",
+      "loop": true,
+      "volume": 0.55
+    },
+    "music_king": {
+      "path": "audio/Music_King_Smurf.mp3",
+      "loop": true,
+      "volume": 0.55
+    },
+    "jingle_catch": {
+      "path": "audio/Jingle_Level_Up.mp3",
+      "volume": 0.35,
+      "start": 0,
+      "maxDuration": 2.2
+    },
+    "jingle_escape": {
+      "path": "audio/Jingle_Save_Activation.mp3",
+      "volume": 0.6
+    },
+    "jingle_win": {
+      "path": "audio/Jingle_EndOfRun_Win.mp3",
+      "volume": 0.7
+    },
+    "jingle_lose": {
+      "path": "audio/Jingle_EndOfRun_Lose.mp3",
+      "volume": 0.6
+    }
+  },
+  "_art": {
+    "source": "art/ (model vẽ asset). Sinh tự động bởi scripts/import-art.mjs — đừng sửa tay các mục có path.",
+    "kidVariants": [
+      "base",
+      "glasses",
+      "backpack",
+      "book",
+      "pencil"
+    ]
+  }
+}

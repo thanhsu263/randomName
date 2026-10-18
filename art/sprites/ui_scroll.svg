@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<defs><filter id="wobble" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
+<g transform="translate(0 0)"><g filter="url(#wobble)">
+<path d="M52 200 Q256 186 460 200 L460 312 Q256 326 52 312 Z" fill="#f3e2b3" stroke="#2b1d14" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M60 214 Q256 200 452 214 M60 298 Q256 312 452 298" fill="none" stroke="#d9bf86" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="24" y="184" width="40" height="144" rx="18" fill="#d9bf86" stroke="#2b1d14" stroke-width="5"/>
+<path d="M34 196 L34 316" fill="none" stroke="#f3e2b3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M54 196 L54 316" fill="none" stroke="#c9a76a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="44.0" cy="172.0" rx="14.0" ry="10.0" fill="#9c6a36" stroke="#2b1d14" stroke-width="4" />
+<ellipse cx="44.0" cy="340.0" rx="14.0" ry="10.0" fill="#9c6a36" stroke="#2b1d14" stroke-width="4" />
+<rect x="448" y="184" width="40" height="144" rx="18" fill="#d9bf86" stroke="#2b1d14" stroke-width="5"/>
+<path d="M458 196 L458 316" fill="none" stroke="#f3e2b3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M478 196 L478 316" fill="none" stroke="#c9a76a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="468.0" cy="172.0" rx="14.0" ry="10.0" fill="#9c6a36" stroke="#2b1d14" stroke-width="4" />
+<ellipse cx="468.0" cy="340.0" rx="14.0" ry="10.0" fill="#9c6a36" stroke="#2b1d14" stroke-width="4" />
+<rect x="84" y="238" width="344" height="36" rx="18.0" fill="#d9bf86" stroke="#2b1d14" stroke-width="4"/>
+<rect x="90" y="243" width="332" height="6" rx="3" fill="#c9a76a"/>
+</g></g>
+</svg>

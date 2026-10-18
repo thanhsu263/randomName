@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<defs><filter id="wobble" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
+<g transform="translate(0 0)"><g filter="url(#wobble)">
+<path d="M256.0 68.4 L282.6 156.8 L352.3 89.1 L329.2 182.8 L413.7 164.9 L360.3 228.0 L465.4 256.0 L367.2 285.8 L433.1 358.2 L330.1 330.1 L354.6 426.8 L283.4 358.2 L256.0 441.5 L229.4 355.2 L162.6 417.8 L173.0 339.0 L77.1 359.3 L144.7 285.8 L50.4 256.0 L155.3 229.0 L91.5 161.0 L176.8 176.8 L154.3 79.8 L225.9 143.8 Z" fill="#ffd23f" stroke="#2b1d14" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M276.8 137.8 L294.7 195.3 L354.3 187.2 L326.3 240.4 L374.2 276.8 L316.7 294.7 L324.8 354.3 L271.6 326.3 L235.2 374.2 L217.3 316.7 L157.7 324.8 L185.7 271.6 L137.8 235.2 L195.3 217.3 L187.2 157.7 L240.4 185.7 Z" fill="#ff9f2e" stroke="#2b1d14" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" />
+<circle cx="256.0" cy="256.0" r="48.0" fill="#fff6c8" stroke="#2b1d14" stroke-width="5" />
+<path d="M46.0 80.0 Q48.0 94.0 62.0 96.0 Q48.0 98.0 46.0 112.0 Q44.0 98.0 30.0 96.0 Q44.0 94.0 46.0 80.0 Z" fill="#ffffff" stroke="#2b1d14" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M456.0 64.0 Q458.0 74.0 468.0 76.0 Q458.0 78.0 456.0 88.0 Q454.0 78.0 444.0 76.0 Q454.0 74.0 456.0 64.0 Z" fill="#ffffff" stroke="#2b1d14" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M470.0 392.0 Q472.0 404.0 484.0 406.0 Q472.0 408.0 470.0 420.0 Q468.0 408.0 456.0 406.0 Q468.0 404.0 470.0 392.0 Z" fill="#ffffff" stroke="#2b1d14" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M66.0 426.0 Q68.0 434.0 76.0 436.0 Q68.0 438.0 66.0 446.0 Q64.0 438.0 56.0 436.0 Q64.0 434.0 66.0 426.0 Z" fill="#ffffff" stroke="#2b1d14" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round" />
+</g></g>
+</svg>

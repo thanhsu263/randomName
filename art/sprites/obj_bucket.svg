@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<defs><filter id="wobble" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
+<g transform="translate(0 0)"><g filter="url(#wobble)">
+<g transform="translate(256.0 500)">
+<path d="M30 -6 Q90 -12 120 -2 Q90 6 30 4 Z" fill="#9fd3e8" stroke="#2b1d14" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" />
+<g transform="translate(-10 -54) rotate(-12)">
+<path d="M-70 -46 L50 -56 Q62 0 50 56 L-70 46 Q-80 0 -70 -46 Z" fill="#c58b4e" stroke="#2b1d14" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M-72 -26.599999999999998 L54 -31.360000000000003" fill="none" stroke="#9c6a36" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M-72 -7.6 L54 -8.96" fill="none" stroke="#9c6a36" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M-72 11.399999999999999 L54 13.440000000000001" fill="none" stroke="#9c6a36" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M-72 30.4 L54 35.84" fill="none" stroke="#9c6a36" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M-47 -46.8 L-33 -47.8 Q-28 0 -33 47.8 L-47 46.8 Q-42 0 -47 -46.8 Z" fill="#8e979e" stroke="#2b1d14" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M-42 -44 Q-37 0 -42 44" fill="none" stroke="#b9c1c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M13 -51.6 L27 -52.6 Q32 0 27 52.6 L13 51.6 Q18 0 13 -51.6 Z" fill="#8e979e" stroke="#2b1d14" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M18 -44 Q23 0 18 44" fill="none" stroke="#b9c1c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="52.0" cy="0.0" rx="14.0" ry="56.0" fill="#9c6a36" stroke="#2b1d14" stroke-width="5" />
+<ellipse cx="54.0" cy="0.0" rx="8.0" ry="46.0" fill="#3a2a1a" stroke="none" />
+<path d="M-60 -40 Q-90 -70 -60 -86" fill="none" stroke="#2b1d14" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M-60 -40 Q-90 -70 -60 -86" fill="none" stroke="#b9c1c7" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path d="M-110.0 2 q3 -16 7 0 q4 -22 8 0 q4 -16 7 0" fill="none" stroke="#5ea43a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g></g>
+</svg>

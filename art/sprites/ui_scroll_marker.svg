@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<defs><filter id="wobble" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
+<g transform="translate(0 0)"><g filter="url(#wobble)">
+<g transform="translate(256.0 256.0)">
+<ellipse cx="0.0" cy="20.0" rx="70.0" ry="14.0" fill="#e7d6ab" stroke="#2b1d14" stroke-width="5" />
+<path d="M-76 20 C-80 -76 76 -86 72 20 Q0 34 -76 20 Z" fill="#2f74d6" stroke="#2b1d14" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" />
+<circle cx="-46.0" cy="-4.0" r="11.0" fill="#ffffff" stroke="#2b1d14" stroke-width="4" />
+<circle cx="-12.0" cy="-42.0" r="10.0" fill="#ffffff" stroke="#2b1d14" stroke-width="4" />
+<circle cx="30.0" cy="-30.0" r="11.0" fill="#ffffff" stroke="#2b1d14" stroke-width="4" />
+<circle cx="56.0" cy="0.0" r="7.0" fill="#ffffff" stroke="#2b1d14" stroke-width="4" />
+</g>
+</g></g>
+</svg>

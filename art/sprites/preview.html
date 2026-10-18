@@ -1,0 +1,58 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Kid sprites</title>
+<style>
+body{margin:16px;font-family:system-ui,sans-serif;background:#dff0fb;color:#2b1d14}
+.row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px}
+figure{margin:0;text-align:center;font-size:13px}
+.sp{width:256px;height:256px;background-repeat:no-repeat;border:1px solid #b8d6ea;border-radius:8px;position:relative}
+.label{position:absolute;font:bold 9px system-ui;color:#1f4e8c;transform:translate(-50%,-50%);white-space:nowrap}
+select{font-size:14px;margin:0 0 12px}
+</style></head><body>
+<select id="v"><option value="">base</option><option>glasses</option><option>backpack</option><option>book</option><option>pencil</option></select>
+<div class="row" id="row"></div>
+<script>
+const anims = {run:[8,14],trip:[6,10],getup:[4,8],jump:[5,10],struggle:[4,10],pop:[5,10]};
+const row = document.getElementById('row'), sel = document.getElementById('v');
+const els = {};
+for (const [name,[n,fps]] of Object.entries(anims)) {
+  const f = document.createElement('figure');
+  f.innerHTML = `<div class="sp"><span class="label">MINH ANH</span></div><figcaption>${name} · ${n}f · ${fps}fps</figcaption>`;
+  row.appendChild(f); els[name] = {div: f.firstChild, n, fps, i: 0};
+}
+// wizard: 512px frames shown at half size
+const wrow = document.createElement('div'); wrow.className = 'row'; document.body.appendChild(wrow);
+for (const [name, [n, fps]] of Object.entries({run:[8,12],lunge:[6,10],fall:[6,10],stomp:[4,8]})) {
+  const f = document.createElement('figure');
+  f.innerHTML = `<div class="sp" style="background-image:url(wizard_${name}.png);background-size:${256 * n}px 256px"></div><figcaption>wizard ${name} · ${n}f · ${fps}fps</figcaption>`;
+  wrow.appendChild(f); els['w_' + name] = {div: f.firstChild, n, fps, i: 0, wizard: true};
+}
+// sack, obstacles, UI and effects: 512px frames shown at half size
+const prow = document.createElement('div'); prow.className = 'row'; document.body.appendChild(prow);
+const props = {sack_idle:1, sack_wriggle:6, sack_open:4, obj_root:1, obj_rock:1, obj_mushroom:1, obj_puddle:1,
+  obj_bucket:1, obj_post:1, ui_scroll:1, ui_scroll_fill:1, ui_scroll_marker:1, ui_button:1, ui_button_pressed:1,
+  fx_starburst:1, fx_dust:4, fx_speedlines:3};
+for (const [name, n] of Object.entries(props)) {
+  const f = document.createElement('figure');
+  f.innerHTML = `<div class="sp" style="background-image:url(${name}.png);background-size:${256 * n}px 256px;background-color:#9cc6e0"></div><figcaption>${name} · ${n}f</figcaption>`;
+  prow.appendChild(f); els['p_' + name] = {div: f.firstChild, n, fps: 8, i: 0, wizard: true};
+}
+let label = {};
+function draw() {
+  const v = sel.value ? '_' + sel.value : '';
+  for (const [name, e] of Object.entries(els)) {
+    if (e.wizard) { e.div.style.backgroundPosition = `${-256 * e.i}px 0`; continue; }
+    e.div.style.backgroundImage = `url(kid_${name}${v}.png)`;
+    e.div.style.backgroundPosition = `${-256 * e.i}px 0`;
+    const L = label[name] && label[name][e.i];
+    const s = e.div.firstChild;
+    if (L) { s.style.left = L.x + 'px'; s.style.top = L.y + 'px'; s.style.transform = `translate(-50%,-50%) rotate(${L.angle}deg)`; }
+  }
+}
+// name label follows the per-frame cap position from kid_sprites.json (needs http://, file:// blocks fetch)
+fetch('kid_sprites.json').then(r => r.json()).then(j => {
+  for (const [k, a] of Object.entries(j.anims)) label[k] = a.frameData.map(f => f.label);
+}).catch(() => {});
+let t = 0;
+setInterval(() => { t++; for (const e of Object.values(els)) if (t % Math.round(60 / e.fps) === 0) e.i = (e.i + 1) % e.n; draw(); }, 1000 / 60);
+sel.onchange = draw;
+</script></body></html>

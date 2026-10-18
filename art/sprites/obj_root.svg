@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<defs><filter id="wobble" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
+<g transform="translate(0 0)"><g filter="url(#wobble)">
+<g transform="translate(256.0 500)">
+<path d="M-170 6 Q-150 -26 -110 -22 Q-90 -4 -84 6 Z" fill="#7a5636" stroke="#2b1d14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M86 6 Q100 -24 140 -20 Q168 -6 176 6 Z" fill="#7a5636" stroke="#2b1d14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M-130 -6 C-120 -90 -60 -140 0 -128 C60 -116 96 -60 120 -6" fill="none" stroke="#2b1d14" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M-130 -6 C-120 -90 -60 -140 0 -128 C60 -116 96 -60 120 -6" fill="none" stroke="#8d5b3b" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M-110 -10 C-96 -70 -40 -150 20 -112 C70 -84 70 -50 104 -10" fill="none" stroke="#2b1d14" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M-110 -10 C-96 -70 -40 -150 20 -112 C70 -84 70 -50 104 -10" fill="none" stroke="#6a4129" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M-70 -96 Q-40 -120 -6 -118 M30 -110 Q62 -96 80 -66" fill="none" stroke="#6a4129" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M-118 -40 q-24 -8 -34 -30 M110 -40 q22 -2 36 -24" fill="none" stroke="#2b1d14" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M-118 -40 q-24 -8 -34 -30 M110 -40 q22 -2 36 -24" fill="none" stroke="#8d5b3b" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="-20.0" cy="-132.0" r="12.0" fill="#6fae3c" stroke="#2b1d14" stroke-width="3" />
+<circle cx="8.0" cy="-134.0" r="9.0" fill="#6fae3c" stroke="#2b1d14" stroke-width="3" />
+<circle cx="-38.0" cy="-126.0" r="8.0" fill="#6fae3c" stroke="#2b1d14" stroke-width="3" />
+<path d="M-170.0 4 q3 -16 7 0 q4 -22 8 0 q4 -16 7 0" fill="none" stroke="#5ea43a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M-70.0 4 q3 -16 7 0 q4 -22 8 0 q4 -16 7 0" fill="none" stroke="#5ea43a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M140.0 4 q3 -16 7 0 q4 -22 8 0 q4 -16 7 0" fill="none" stroke="#5ea43a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g></g>
+</svg>

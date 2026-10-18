@@ -1,0 +1,218 @@
+{
+ "frame": 512,
+ "groundY": 500,
+ "facing": "right",
+ "note": "sackMouth: centre, radius and facing angle (deg, 0 = right, 90 = down) of the open sack, for catch hit-tests; sackFull: sack is closed with a catch inside",
+ "anims": {
+  "run": {
+   "frames": 8,
+   "fps": 12,
+   "loop": true,
+   "frameData": [
+    {
+     "sackMouth": {
+      "x": 413.2,
+      "y": 346.9,
+      "r": 34,
+      "facing": -120.0
+     }
+    },
+    {
+     "sackMouth": {
+      "x": 395.7,
+      "y": 350.5,
+      "r": 34,
+      "facing": -97.4
+     }
+    },
+    {
+     "sackMouth": {
+      "x": 386.4,
+      "y": 363.2,
+      "r": 34,
+      "facing": -88.0
+     }
+    },
+    {
+     "sackMouth": {
+      "x": 395.7,
+      "y": 377.9,
+      "r": 34,
+      "facing": -97.4
+     }
+    },
+    {
+     "sackMouth": {
+      "x": 413.2,
+      "y": 346.9,
+      "r": 34,
+      "facing": -120.0
+     }
+    },
+    {
+     "sackMouth": {
+      "x": 415.0,
+      "y": 296.1,
+      "r": 34,
+      "facing": -142.6
+     }
+    },
+    {
+     "sackMouth": {
+      "x": 405.1,
+      "y": 287.5,
+      "r": 34,
+      "facing": -152.0
+     }
+    },
+    {
+     "sackMouth": {
+      "x": 415.0,
+      "y": 339.2,
+      "r": 34,
+      "facing": -142.6
+     }
+    }
+   ]
+  },
+  "lunge": {
+   "frames": 6,
+   "fps": 10,
+   "loop": false,
+   "frameData": [
+    {
+     "sackMouth": {
+      "x": 182.5,
+      "y": 156.6,
+      "r": 34,
+      "facing": -80.0
+     }
+    },
+    {
+     "sackMouth": {
+      "x": 392.4,
+      "y": 279.8,
+      "r": 34,
+      "facing": 30.0
+     }
+    },
+    {
+     "sackMouth": {
+      "x": 424.4,
+      "y": 438.9,
+      "r": 34,
+      "facing": -0.0
+     }
+    },
+    {
+     "sackMouth": {
+      "x": 355.1,
+      "y": 472.0,
+      "r": 34,
+      "facing": 70.0
+     }
+    },
+    {
+     "sackFull": true
+    },
+    {
+     "sackFull": true
+    }
+   ]
+  },
+  "fall": {
+   "frames": 6,
+   "fps": 10,
+   "loop": false,
+   "frameData": [
+    {
+     "sackMouth": {
+      "x": 355.1,
+      "y": 472.0,
+      "r": 34,
+      "facing": 70.0
+     }
+    },
+    {
+     "sackMouth": {
+      "x": 288.2,
+      "y": 445.4,
+      "r": 34,
+      "facing": 105.0
+     }
+    },
+    {
+     "sackMouth": {
+      "x": 346.1,
+      "y": 418.7,
+      "r": 34,
+      "facing": 140.0
+     }
+    },
+    {
+     "sackMouth": {
+      "x": 366.9,
+      "y": 428.7,
+      "r": 34,
+      "facing": 106.0
+     }
+    },
+    {
+     "sackMouth": {
+      "x": 363.6,
+      "y": 431.9,
+      "r": 34,
+      "facing": 90.0
+     }
+    },
+    {
+     "sackMouth": {
+      "x": 363.6,
+      "y": 431.9,
+      "r": 34,
+      "facing": 90.0
+     }
+    }
+   ]
+  },
+  "stomp": {
+   "frames": 4,
+   "fps": 8,
+   "loop": true,
+   "frameData": [
+    {
+     "sackMouth": {
+      "x": 383.9,
+      "y": 299.8,
+      "r": 34,
+      "facing": -100.0
+     }
+    },
+    {
+     "sackMouth": {
+      "x": 372.5,
+      "y": 337.9,
+      "r": 34,
+      "facing": -70.0
+     }
+    },
+    {
+     "sackMouth": {
+      "x": 386.7,
+      "y": 183.7,
+      "r": 34,
+      "facing": -140.0
+     }
+    },
+    {
+     "sackMouth": {
+      "x": 397.9,
+      "y": 303.1,
+      "r": 34,
+      "facing": -60.0
+     }
+    }
+   ]
+  }
+ }
+}

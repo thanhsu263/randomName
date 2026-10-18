@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <title>Gargamel bắt Xì Trum SGU — Gọi tên sinh viên</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <div id="app">
+      <main id="screen" aria-live="polite"></main>
+      <section id="stage" hidden aria-label="Màn rượt đuổi">
+        <div id="game"></div>
+        <div class="stage-overlay">
+          <button id="skip-btn" class="btn wood" title="Bỏ qua tới kết quả (phím S)">⏭ Bỏ qua <kbd>S</kbd></button>
+        </div>
+      </section>
+    </div>
+    <div class="toolbar">
+      <button id="mute-btn" class="icon-btn round" title="Bật/tắt âm thanh (phím M)">🔊</button>
+      <button id="fs-btn" class="icon-btn round" title="Toàn màn hình (phím F)">⛶</button>
+    </div>
+    <footer class="credits" id="credits">
+      Xì Trum &amp; Gargamel © Peyo / IMPS · Nhạc: <i>Smurfs Epic Run</i> © Ubisoft · Dự án học tập &amp; giải trí
+      nội bộ, phi thương mại — Trường Đại học Sài Gòn ·
+      <a href="#" id="credits-link">Ghi nguồn</a>
+    </footer>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
