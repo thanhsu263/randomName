@@ -38,6 +38,63 @@ function alphaBBox(png) {
     }
   return x1 < 0 ? null : [x0, y0, x1 - x0 + 1, y1 - y0 + 1];
 }
+/**
+ * Đỉnh nhân vật ở từng khung hình của một sprite sheet (px trong khung): [x, y].
+ * Tách các mảng liền nhau (alpha > 40), chỉ giữ mảng lớn (>= 30% mảng lớn nhất) để bỏ qua sao, bụi,
+ * vạch tốc độ nằm rời nhân vật. y = hàng trên cùng của nhân vật; x = tâm các điểm ảnh ở 25 hàng đầu.
+ */
+function characterTops(png, frameSize, frames) {
+  const out = [];
+  for (let f = 0; f < frames; f++) {
+    const ox = f * frameSize;
+    const label = new Int32Array(frameSize * frameSize);
+    const comps = [];
+    for (let y0 = 0; y0 < frameSize; y0++) {
+      for (let x0 = 0; x0 < frameSize; x0++) {
+        const i0 = y0 * frameSize + x0;
+        if (label[i0] || png.data[((y0 * png.width) + ox + x0) * 4 + 3] <= 40) continue;
+        const id = comps.length + 1;
+        const stack = [i0];
+        label[i0] = id;
+        const c = { area: 0, pix: [] };
+        while (stack.length) {
+          const i = stack.pop();
+          const y = (i / frameSize) | 0;
+          const x = i - y * frameSize;
+          c.area++;
+          c.pix.push(i);
+          for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+            const nx = x + dx;
+            const ny = y + dy;
+            if (nx < 0 || ny < 0 || nx >= frameSize || ny >= frameSize) continue;
+            const ni = ny * frameSize + nx;
+            if (label[ni] || png.data[((ny * png.width) + ox + nx) * 4 + 3] <= 40) continue;
+            label[ni] = id;
+            stack.push(ni);
+          }
+        }
+        comps.push(c);
+      }
+    }
+    const biggest = Math.max(0, ...comps.map((c) => c.area));
+    const keep = comps.filter((c) => c.area >= biggest * 0.3);
+    let top = frameSize;
+    for (const c of keep) for (const i of c.pix) top = Math.min(top, (i / frameSize) | 0);
+    let sx = 0;
+    let n = 0;
+    for (const c of keep) {
+      for (const i of c.pix) {
+        const y = (i / frameSize) | 0;
+        if (y < top + 25) {
+          sx += i - y * frameSize;
+          n++;
+        }
+      }
+    }
+    out.push(n ? [r1(sx / n), top] : null);
+  }
+  return out;
+}
 const copy = (src, dst) => {
   copyFileSync(src, `${OUT}/${dst}`);
   return dst;
@@ -64,6 +121,13 @@ for (const [anim, key] of Object.entries(KID_MAP)) {
   }
   const { width } = pngSize(`${SP}/kid_${anim}.png`);
   if (width / kf !== a.frames) throw new Error(`kid_${anim}: ${width / kf} khung, json ghi ${a.frames}`);
+  // topTrack = đỉnh nhân vật (mũ) mỗi khung: lấy khung cao nhất trong các biến thể (bút chì, kính… có thể nhô lên)
+  const tops = kid.variants.map((v) => characterTops(PNG.sync.read(readFileSync(`${SP}/${v === 'base' ? `kid_${anim}` : `kid_${anim}_${v}`}.png`)), kf, a.frames));
+  const topTrack = tops[0].map((t0, i) => {
+    let best = t0;
+    for (const t of tops) if (t && (!best || t[1] < best[1])) best = [t0 ? t0[0] : t[0], t[1]];
+    return best;
+  });
   manifest.sprites[key] = {
     path: variants.base,
     variants,
@@ -75,6 +139,7 @@ for (const [anim, key] of Object.entries(KID_MAP)) {
     anchor: [0.5, kid.groundY / kf],
     // headTrack = tâm miếng vải trên mũ (x, y, góc rad) — băng rôn tên, mồ hôi, sao bám theo
     headTrack: a.frameData.map((f) => [r1(f.label.x), r1(f.label.y), rad(f.label.angle)]),
+    topTrack,
     labelOffset: [0, 0],
     ...(a.frameData.some((f) => f.dy !== undefined) ? { dyTrack: a.frameData.map((f) => f.dy ?? 0) } : {}),
     ...(a.frameData.some((f) => f.grip) ? { gripTrack: a.frameData.map((f) => (f.grip ? [r1(f.grip.x), r1(f.grip.y)] : null)) } : {}),

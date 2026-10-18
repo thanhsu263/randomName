@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import type { RosterEntry } from '@shared/types';
 import type { AnimDef, AssetRegistry } from '../assets';
 import { SMURF_BODY_ORIGIN, SMURF_HEAD_ORIGIN } from '../assets';
-import { BASE_SPEED, DEPTH, FONT_DISPLAY, GARG_Y, HERD_MAX, LABEL_FONT_SIZE, LABEL_LANE_STAGGER, LANES, LANE_SCALE, SMURF_SCALE, W } from '../config';
+import { BASE_SPEED, DEPTH, FONT_DISPLAY, GARG_Y, HERD_MAX, LABEL_FONT_SIZE, LABEL_GAP, LABEL_LANE_STAGGER, LANES, LANE_SCALE, SMURF_SCALE, W } from '../config';
 import type { Noise1D } from '@shared/rng';
 
 /** Trạng thái: RUN → (TRIP → FALL → GETUP) → RUN → CAUGHT → IN_BAG → (POP → DUST → RUN). */
@@ -444,12 +444,22 @@ export class SmurfActor {
     });
 
     // nhãn tên: neo theo headTrack (tâm miếng vải trên mũ), luôn nằm trên cùng để đọc rõ
-    const ox = hx + a.labelOffset[0] * k;
-    const oy = hy + a.labelOffset[1] * k + bob - (LANES.length - 1 - this.lane) * LABEL_LANE_STAGGER;
+    const labelScale = ground ? Math.max(0.5, this.extraScale) : 1;
+    const stagger = (LANES.length - 1 - this.lane) * LABEL_LANE_STAGGER;
+    const top = a.top?.[fi];
+    let ox: number;
+    let oy: number;
+    if (top) {
+      // art thật: đáy băng rôn nằm ngay trên đỉnh mũ của nhân vật (không đè lên mũ/mặt)
+      ox = (top[0] - ax * a.frameW) * k;
+      oy = (top[1] - ay * a.frameH) * k - LABEL_GAP * s - (this.banner.height / 2) * labelScale + bob - stagger;
+    } else {
+      ox = hx + a.labelOffset[0] * k;
+      oy = hy + a.labelOffset[1] * k + bob - stagger;
+    }
     const spin = a.real && this.state === 'pop' ? 0 : this.spin;
     const lx = this.x + Math.cos(spin) * ox - Math.sin(spin) * oy;
     const ly = this.laneY + this.yOff + Math.sin(spin) * ox + Math.cos(spin) * oy;
-    const labelScale = ground ? Math.max(0.5, this.extraScale) : 1;
     const rot = Math.max(-0.12, Math.min(0.12, (head[2] - (a.real ? 0.21 : 0.13)) * 0.25));
     this.label
       .setPosition(lx, ly)

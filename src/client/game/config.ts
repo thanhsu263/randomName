@@ -31,7 +31,9 @@ export const DEFAULT_MAX_VISIBLE = 10;
 
 export const LABEL_FONT_SIZE = 38;
 /** Băng rôn tên của làn xa được nâng cao hơn để không chồng lên làn gần (px mỗi làn). */
-export const LABEL_LANE_STAGGER = 24;
+export const LABEL_LANE_STAGGER = 10;
+/** Khoảng hở (px) giữa đáy băng rôn tên và đỉnh mũ nhân vật. */
+export const LABEL_GAP = 4;
 export const FONT_DISPLAY = '"Baloo 2", "Be Vietnam Pro", sans-serif';
 
 export const DEPTH = {

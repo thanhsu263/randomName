@@ -28,6 +28,8 @@ export interface SpriteSpec {
   headTrack?: Track[];
   bodyTrack?: Track[];
   handTrack?: Track[];
+  /** đỉnh nhân vật (mũ) mỗi khung [x, y] — băng rôn tên nằm phía trên điểm này */
+  topTrack?: ([number, number] | null)[];
   /** độ lệch băng rôn tên so với headTrack (px khung) */
   labelOffset?: [number, number];
   /** nhân vật đã vẽ sẵn mũ/phụ kiện trong thân → tắt mũ rời & overlay phụ kiện */
@@ -98,6 +100,7 @@ export interface AnimDef {
   head?: Track[];
   body?: Track[];
   hand?: Track[];
+  top?: ([number, number] | null)[];
   labelOffset: [number, number];
   bakedHat: boolean;
   noTint: boolean;
@@ -261,6 +264,7 @@ export class AssetRegistry {
           head: s.headTrack,
           body: s.bodyTrack,
           hand: s.handTrack,
+          top: s.topTrack,
           labelOffset: s.labelOffset ?? [0, 0],
           bakedHat: s.bakedHat ?? false,
           noTint: s.noTint ?? false,

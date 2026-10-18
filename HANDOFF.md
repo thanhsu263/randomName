@@ -72,6 +72,11 @@ Mốc theo đặc tả gốc: M1–M4 xong. M5 (asset thật, âm thanh, polish)
 - Đã kiểm thử bằng cách phát lại lượt #98: khoảnh khắc chộp, chạy với túi có người, giậm chân khi thoát túi, và té ngã (túi úp).
 - Nếu art đổi lần nữa: sửa `SACK_OVERLAY` trong `scripts/import-art.mjs` nếu kích thước túi vẽ sẵn thay đổi (đo bằng tay: dài/rộng tính từ cổ túi tại tâm miệng).
 
+## 3e. Băng rôn tên nằm trên đỉnh mũ (2026-10-18)
+
+- Trước đây băng rôn neo vào tâm miếng vải trên mũ nên đè lên mũ/mặt. Giờ `import-art.mjs` đo **đỉnh nhân vật** mỗi khung (`topTrack` trong manifest): tách các mảng liền nhau, bỏ mảng nhỏ (sao, bụi, vạch tốc độ), lấy hàng trên cùng và x trung bình của 25 hàng đầu; lấy khung cao nhất trong 5 biến thể (bút chì, kính…).
+- `Smurf.ts` đặt đáy băng rôn cách đỉnh `LABEL_GAP` px (config.ts), cộng `LABEL_LANE_STAGGER` nhỏ theo làn. Không có `topTrack` (placeholder thủ tục) thì giữ cách neo cũ.
+
 ## 4. VIỆC CÒN LẠI
 
 1. (Đã xong) Docker: image build và chạy được với PGlite (không còn module native phải biên dịch). Lúc build cần mạng vì `xlsx` tải từ cdn.sheetjs.com. Dữ liệu cũ trong volume `sgu-data` (file app.db) không tự chuyển: dùng `docker cp` lấy file ra rồi chạy `npm run migrate:sqlite`.
