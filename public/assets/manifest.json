@@ -413,8 +413,8 @@
       "sackRadius": 37,
       "bagInHand": true,
       "sackOverlay": [
-        2.5,
-        3.1
+        3.5,
+        3.9
       ]
     },
     "gargamel_lunge": {
@@ -463,8 +463,8 @@
       "sackRadius": 37,
       "bagInHand": true,
       "sackOverlay": [
-        2.5,
-        3.1
+        3.5,
+        3.9
       ],
       "sackFull": [
         4,
@@ -519,8 +519,8 @@
       "sackRadius": 37,
       "bagInHand": true,
       "sackOverlay": [
-        2.5,
-        3.1
+        3.5,
+        3.9
       ]
     },
     "gargamel_angry": {
@@ -559,8 +559,8 @@
       "sackRadius": 37,
       "bagInHand": true,
       "sackOverlay": [
-        2.5,
-        3.1
+        3.5,
+        3.9
       ]
     },
     "bag_idle": {

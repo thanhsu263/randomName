@@ -89,7 +89,7 @@ const wf = wiz.frame;
 // Túi vẽ sẵn trong tay phù thủy (đo từ art: thân túi dài ~113px, rộng ~91px khi bán kính miệng r=37;
 // cổ túi nằm đúng tại tâm miệng). Lưu theo bội số của r để khi đổi art chỉ cần sửa 2 số này.
 // Dùng để đè túi "có người đang giãy" (bag_wriggle) khít lên túi vẽ sẵn.
-const SACK_OVERLAY = [2.5, 3.1]; // [rộng, dài] / r
+const SACK_OVERLAY = [3.5, 3.9]; // [rộng, dài] / r (túi vẽ sẵn đo được 2.5 x 3.1; đè to hơn ~40% để che kín viền và cổ túi cũ)
 for (const [anim, key] of Object.entries(WIZ_MAP)) {
   const a = wiz.anims[anim];
   const path = copy(`${SP}/wizard_${anim}.png`, `sprites/wizard_${anim}.png`);

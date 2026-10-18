@@ -67,7 +67,7 @@ Mốc theo đặc tả gốc: M1–M4 xong. M5 (asset thật, âm thanh, polish)
 
 - Bộ asset mới (nhân vật sinh viên là xì trum, phù thủy là Gargamel) lấy từ `F:ssetrt_new` và đã **chép vào `art/sprites/`** (nguồn), rồi chạy `npm run import:art` để sinh lại `public/assets` + `manifest.json`. Nếu chỉ chép ảnh vào `public/` mà không cập nhật `art/` thì lần `import:art` sau sẽ ghi đè lại ảnh cũ.
 - Túi vẽ sẵn của Gargamel mới: khi chạy là **túi buộc kín nhỏ** trong tay; khi vồ (khung 0–3) là túi mở. Đã sửa cho khớp:
-  - `import-art.mjs` tự suy `catchFrame` (khung miệng túi hướng ngang nhất trước khung túi đầy, hiện là khung 2 của `wizard_lunge`) và ghi `sackOverlay` [2.5, 3.1] (rộng/dài túi vẽ sẵn tính theo bội số bán kính miệng r=37, đo từ art) + `bagSize` của sprite túi giãy. Các số này nằm trong manifest.
+  - `import-art.mjs` tự suy `catchFrame` (khung miệng túi hướng ngang nhất trước khung túi đầy, hiện là khung 2 của `wizard_lunge`) và ghi `sackOverlay` [3.5, 3.9] (rộng/dài túi đè tính theo bội số bán kính miệng r=37; túi vẽ sẵn đo được 2.5 x 3.1, đè to hơn ~40% để che kín túi cũ) + `bagSize` của sprite túi giãy. Các số này nằm trong manifest.
   - `Gargamel.ts`: `catchFrame` đọc từ manifest; túi giãy (`bag_wriggle`) đè khít lên túi vẽ sẵn bằng scale lệch trục theo `sackOverlay`/`bagSize`, cổ túi trùng tâm miệng, không còn che nắm tay.
 - Đã kiểm thử bằng cách phát lại lượt #98: khoảnh khắc chộp, chạy với túi có người, giậm chân khi thoát túi, và té ngã (túi úp).
 - Nếu art đổi lần nữa: sửa `SACK_OVERLAY` trong `scripts/import-art.mjs` nếu kích thước túi vẽ sẵn thay đổi (đo bằng tay: dài/rộng tính từ cổ túi tại tâm miệng).

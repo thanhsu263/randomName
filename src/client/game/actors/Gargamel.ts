@@ -281,7 +281,11 @@ export class GargamelActor {
     const sq = this.bagSquash + this.bagStruggle * 0.12 * Math.sin(t * 31);
     this.bag.setScale(sx * grow * (1 + sq), sy * grow * (1 - sq));
     // trục "xuống" của túi (+y) hướng ra xa miệng túi, tức ngược hướng `facing`
-    this.bag.setPosition(mx, my);
+    // nhích túi đè về phía nắm tay (theo hướng miệng) để che nốt phần cổ túi cũ ló ra cạnh tay
+    // và nhích sang bên (vuông góc với trục túi) về phía cổ túi cũ hay ló ra
+    const up = r * k * 0.3;
+    const side = r * k * 0.25;
+    this.bag.setPosition(mx + Math.cos(facing) * up - Math.sin(facing) * side, my + Math.sin(facing) * up + Math.cos(facing) * side);
     this.bag.setRotation(facing + Math.PI / 2 + this.bagStruggle * 0.15 * Math.sin(t * 23));
   }
 }
