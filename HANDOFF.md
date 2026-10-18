@@ -63,6 +63,15 @@ Mốc theo đặc tả gốc: M1–M4 xong. M5 (asset thật, âm thanh, polish)
 - Client tự thử lại các request GET khi server trả 502/503 lúc mới khởi động.
 - Đã kiểm thử: 24 test trên PGlite; bundle Vercel chạy với Postgres 17 thật qua proxy HTTP của Neon (đủ các route, upsert, xoá kéo theo, migration, chuyển dữ liệu); `npm start` và Docker chạy được với PGlite. **Chưa deploy thật lên Vercel/Neon**, vì cần tài khoản của chủ dự án; làm theo DEPLOY.md.
 
+## 3d. Asset phù thủy/nhân vật mới + căn lại túi (2026-10-18)
+
+- Bộ asset mới (nhân vật sinh viên là xì trum, phù thủy là Gargamel) lấy từ `F:ssetrt_new` và đã **chép vào `art/sprites/`** (nguồn), rồi chạy `npm run import:art` để sinh lại `public/assets` + `manifest.json`. Nếu chỉ chép ảnh vào `public/` mà không cập nhật `art/` thì lần `import:art` sau sẽ ghi đè lại ảnh cũ.
+- Túi vẽ sẵn của Gargamel mới: khi chạy là **túi buộc kín nhỏ** trong tay; khi vồ (khung 0–3) là túi mở. Đã sửa cho khớp:
+  - `import-art.mjs` tự suy `catchFrame` (khung miệng túi hướng ngang nhất trước khung túi đầy, hiện là khung 2 của `wizard_lunge`) và ghi `sackOverlay` [2.5, 3.1] (rộng/dài túi vẽ sẵn tính theo bội số bán kính miệng r=37, đo từ art) + `bagSize` của sprite túi giãy. Các số này nằm trong manifest.
+  - `Gargamel.ts`: `catchFrame` đọc từ manifest; túi giãy (`bag_wriggle`) đè khít lên túi vẽ sẵn bằng scale lệch trục theo `sackOverlay`/`bagSize`, cổ túi trùng tâm miệng, không còn che nắm tay.
+- Đã kiểm thử bằng cách phát lại lượt #98: khoảnh khắc chộp, chạy với túi có người, giậm chân khi thoát túi, và té ngã (túi úp).
+- Nếu art đổi lần nữa: sửa `SACK_OVERLAY` trong `scripts/import-art.mjs` nếu kích thước túi vẽ sẵn thay đổi (đo bằng tay: dài/rộng tính từ cổ túi tại tâm miệng).
+
 ## 4. VIỆC CÒN LẠI
 
 1. (Đã xong) Docker: image build và chạy được với PGlite (không còn module native phải biên dịch). Lúc build cần mạng vì `xlsx` tải từ cdn.sheetjs.com. Dữ liệu cũ trong volume `sgu-data` (file app.db) không tự chuyển: dùng `docker cp` lấy file ra rồi chạy `npm run migrate:sqlite`.

@@ -86,6 +86,10 @@ for (const [anim, key] of Object.entries(KID_MAP)) {
 // ---------------------------------------------------------------- wizard → gargamel_*
 const WIZ_MAP = { run: 'gargamel_run', lunge: 'gargamel_lunge', fall: 'gargamel_miss_fall', stomp: 'gargamel_angry' };
 const wf = wiz.frame;
+// Túi vẽ sẵn trong tay phù thủy (đo từ art: thân túi dài ~113px, rộng ~91px khi bán kính miệng r=37;
+// cổ túi nằm đúng tại tâm miệng). Lưu theo bội số của r để khi đổi art chỉ cần sửa 2 số này.
+// Dùng để đè túi "có người đang giãy" (bag_wriggle) khít lên túi vẽ sẵn.
+const SACK_OVERLAY = [2.5, 3.1]; // [rộng, dài] / r
 for (const [anim, key] of Object.entries(WIZ_MAP)) {
   const a = wiz.anims[anim];
   const path = copy(`${SP}/wizard_${anim}.png`, `sprites/wizard_${anim}.png`);
@@ -100,6 +104,18 @@ for (const [anim, key] of Object.entries(WIZ_MAP)) {
   });
   for (let i = 0; i < handTrack.length; i++) if (!handTrack[i]) handTrack[i] = handTrack.find(Boolean);
   const sackFull = a.frameData.map((f, i) => (f.sackFull ? i : -1)).filter((i) => i >= 0);
+  // catchFrame = khung "miệng túi mở chạm mục tiêu": trong các khung trước khung túi đầy,
+  // lấy khung có miệng túi hướng ngang nhất (|facing| nhỏ nhất; hoà thì lấy khung sau).
+  let catchFrame;
+  if (sackFull.length) {
+    let best = Infinity;
+    a.frameData.slice(0, sackFull[0]).forEach((f, i) => {
+      if (f.sackMouth && Math.abs(f.sackMouth.facing) <= best) {
+        best = Math.abs(f.sackMouth.facing);
+        catchFrame = i;
+      }
+    });
+  }
   manifest.sprites[key] = {
     path,
     frameWidth: wf,
@@ -111,7 +127,8 @@ for (const [anim, key] of Object.entries(WIZ_MAP)) {
     handTrack,
     sackRadius: a.frameData.find((f) => f.sackMouth)?.sackMouth.r ?? 34,
     bagInHand: true,
-    ...(sackFull.length ? { sackFull, slamFrame: sackFull[0] } : {}),
+    sackOverlay: SACK_OVERLAY,
+    ...(sackFull.length ? { sackFull, slamFrame: sackFull[0], catchFrame } : {}),
   };
 }
 
@@ -126,6 +143,10 @@ for (const [name, key] of Object.entries(BAG_MAP)) {
   writeFileSync(`${OUT}/sprites/${name}.png`, PNG.sync.write(dst));
   // điểm treo = đỉnh nút buộc (hàng có alpha đầu tiên ở giữa khung đầu)
   const bb = alphaBBox(PNG.sync.read(PNG.sync.write(dst)));
+  // kích thước thân túi ở khung đầu (px trong khung 256) để scale khít lên túi vẽ sẵn
+  const first = new PNG({ width: BAG_CROP.size, height: BAG_CROP.size });
+  PNG.bitblt(dst, first, 0, 0, BAG_CROP.size, BAG_CROP.size, 0, 0);
+  const fb = alphaBBox(first);
   const p = props.assets[name];
   manifest.sprites[key] = {
     path: `sprites/${name}.png`,
@@ -136,6 +157,8 @@ for (const [name, key] of Object.entries(BAG_MAP)) {
     loop: p.loop ?? false,
     anchor: [0.5, (props.groundY - BAG_CROP.y) / BAG_CROP.size],
     grip: [128, bb ? Math.max(0, bb[1] + 4) : 40],
+    // [rộng, dài] của thân túi tính từ cổ (grip) xuống đáy
+    bagSize: fb ? [fb[2], fb[1] + fb[3] - (bb ? Math.max(0, bb[1] + 4) : 40)] : [190, 210],
   };
   count++;
 }

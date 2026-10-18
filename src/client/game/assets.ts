@@ -40,7 +40,13 @@ export interface SpriteSpec {
   sackFull?: number[];
   /** khung túi chụp xuống trong hoạt cảnh vồ */
   slamFrame?: number;
+  /** khung miệng túi mở chạm mục tiêu trong hoạt cảnh vồ (art mới: tự suy từ sackMouth) */
+  catchFrame?: number;
   sackRadius?: number;
+  /** [rộng, dài] của túi vẽ sẵn, tính theo bội số bán kính miệng túi */
+  sackOverlay?: [number, number];
+  /** [rộng, dài] thân túi trong khung (px), tính từ cổ túi — chỉ có ở bag_* */
+  bagSize?: [number, number];
   /** điểm treo túi (chỉ cho bag_*) */
   grip?: [number, number];
 }
@@ -98,6 +104,9 @@ export interface AnimDef {
   bagInHand: boolean;
   sackFull: number[];
   slamFrame?: number;
+  catchFrame?: number;
+  sackOverlay?: [number, number];
+  sackRadius?: number;
 }
 
 let manifestCache: Manifest | null = null;
@@ -142,6 +151,8 @@ export class AssetRegistry {
   readonly real = new Set<string>();
   readonly imageAnchor = new Map<string, [number, number]>();
   bagGrip: [number, number] = [BAG_GRIP[0] / BAG_FRAME, BAG_GRIP[1] / BAG_FRAME];
+  /** [rộng, dài] thân túi (px khung 256) từ cổ xuống đáy */
+  bagSize: [number, number] = [190, 210];
 
   constructor(
     private readonly scene: Phaser.Scene,
@@ -256,6 +267,9 @@ export class AssetRegistry {
           bagInHand: s.bagInHand ?? false,
           sackFull: s.sackFull ?? [],
           slamFrame: s.slamFrame,
+          catchFrame: s.catchFrame,
+          sackOverlay: s.sackOverlay,
+          sackRadius: s.sackRadius,
         };
       } else {
         const gen = genFor(key);
@@ -282,6 +296,7 @@ export class AssetRegistry {
         };
       }
       if (key.startsWith('bag_') && s.grip && loaded) this.bagGrip = [s.grip[0] / s.frameWidth, s.grip[1] / s.frameHeight];
+      if (key === 'bag_idle' && s.bagSize && loaded) this.bagSize = s.bagSize;
       this.anims.set(key, def);
     }
 

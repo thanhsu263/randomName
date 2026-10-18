@@ -69,11 +69,13 @@ export class GargamelActor {
   }
 
   /**
-   * Khung "miệng túi chạm mục tiêu" trong hoạt cảnh vồ. Art thật: khung ngay trước khung túi đầy
-   * đầu tiên (slamFrame); placeholder: chính slamFrame.
+   * Khung "miệng túi chạm mục tiêu" trong hoạt cảnh vồ. Art thật: manifest ghi `catchFrame`
+   * (khung có miệng túi hướng ngang nhất trước khung túi đầy); thiếu thì lùi 1 khung so với slamFrame;
+   * placeholder: chính slamFrame.
    */
   private get catchFrame(): number {
     const a = this.assets.anim('gargamel_lunge');
+    if (a.catchFrame !== undefined) return a.catchFrame;
     const slam = a.slamFrame ?? 3;
     return a.real && a.sackFull.length ? Math.max(0, slam - 1) : slam;
   }
@@ -268,16 +270,18 @@ export class GargamelActor {
     const f = Math.floor(t * fps) % def.frames.length;
     this.bag.setTexture(def.texture, def.frames[f]);
     this.bag.setOrigin(this.assets.bagGrip[0], this.assets.bagGrip[1]);
-    // túi vẽ sẵn rộng ~3.4 lần bán kính miệng; túi đè to hơn chút (4.1) để phủ kín; túi trong khung bag rộng ~0.74 cạnh khung
-    const r = this.assets.manifest.sprites[a.key]?.sackRadius ?? 34;
-    const base = (k * r * 4.1) / (def.frameW * 0.74);
-    const grow = 1 + Math.min(this.bagCount, 6) * 0.04;
-    const sq = this.bagSquash + this.bagStruggle * 0.14 * Math.sin(t * 31);
-    this.bag.setScale(base * grow * (1 + sq), base * grow * (1 - sq));
-    // trục "lên" của túi (−y) trùng hướng miệng túi
-    // đẩy nút buộc ra trước miệng túi một chút để che kín vành túi mở vẽ sẵn bên dưới
-    const push = r * k * 0.75;
-    this.bag.setPosition(mx + Math.cos(facing) * push, my + Math.sin(facing) * push);
+    // khít lên túi vẽ sẵn: rộng/dài của túi = bội số bán kính miệng (manifest.sackOverlay),
+    // chia cho kích thước thân túi trong sprite (manifest.bagSize); cổ túi trùng tâm miệng túi
+    const r = a.sackRadius ?? 34;
+    const [ow, ol] = a.sackOverlay ?? [2.5, 3.1];
+    const [bw, bl] = this.assets.bagSize;
+    const sx = (k * r * ow) / bw;
+    const sy = (k * r * ol) / bl;
+    const grow = 1 + Math.min(this.bagCount, 6) * 0.03;
+    const sq = this.bagSquash + this.bagStruggle * 0.12 * Math.sin(t * 31);
+    this.bag.setScale(sx * grow * (1 + sq), sy * grow * (1 - sq));
+    // trục "xuống" của túi (+y) hướng ra xa miệng túi, tức ngược hướng `facing`
+    this.bag.setPosition(mx, my);
     this.bag.setRotation(facing + Math.PI / 2 + this.bagStruggle * 0.15 * Math.sin(t * 23));
   }
 }
