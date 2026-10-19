@@ -1,4 +1,4 @@
-# Gargamel bắt Xì Trum SGU
+# Gargamel GỌI TÊN NGẪU NHIÊN SGU
 
 Mini-game gọi tên sinh viên ngẫu nhiên cho Trường Đại học Sài Gòn. Phù thủy cầm túi đuổi bắt đàn "xì trum", mỗi bạn mang tên một sinh viên trên mũ. Bạn nào bị bắt vào túi là được gọi tên. Game thiết kế để chiếu lên máy chiếu 1920x1080 trong lớp và chạy được offline.
 
