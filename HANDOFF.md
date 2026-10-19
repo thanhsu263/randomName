@@ -84,6 +84,12 @@ Mốc theo đặc tả gốc: M1–M4 xong. M5 (asset thật, âm thanh, polish)
 - **Chống bấm nhiều lần**: (1) `api.ts` — mọi yêu cầu ghi (POST/DELETE) chắn thao tác trong lúc chờ; yêu cầu GET chỉ hiện biểu tượng chờ nếu lâu. (2) `inflight.ts` (`InFlight`, có test) gộp các yêu cầu ghi giống hệt nhau đang chờ thành 1 lần gửi. (3) `App.startDraw` / `playChase` giữ màn chắn từ lúc bấm đến khi màn rượt đuổi đã khởi động; `callNext` ở màn Kết quả có cờ `calling`. Khi server trả 401, màn chắn được nhả để hộp thoại mật khẩu bấm được.
 - Sửa lỗi trong `characterTops` (đo `topTrack`): vòng lặp qua các biến thể trước đó so sánh nhầm mảng khung thay vì từng khung.
 
+## 3g. Icon trang & SEO cơ bản (2026-10-19)
+
+- `public/`: `favicon.ico` (16/32/48), `favicon-32/48/96/192.png`, `apple-touch-icon.png`, `logo-sgu.png` (512), `og-image.png` (1200x630, ảnh chia sẻ liên kết), `robots.txt` (cho phép thu thập, chặn `/api/`, trỏ sitemap), `sitemap.xml`. Trước đó `robots.txt` bị SPA trả về HTML.
+- `index.html`: thêm `description`, `theme-color`, `canonical`, thẻ Open Graph/Twitter, các `<link rel="icon">` (Google yêu cầu ảnh vuông, kích thước bội số của 48 px). **Tên miền `https://www.quyentran.online` được ghi cứng** trong canonical/og/sitemap/robots: đổi tên miền thì sửa các chỗ này.
+- Google chỉ cập nhật icon trong kết quả tìm kiếm sau khi thu thập lại trang (vài ngày đến vài tuần); có thể yêu cầu nhanh qua Google Search Console ("Kiểm tra URL" → "Yêu cầu lập chỉ mục").
+
 ## 4. VIỆC CÒN LẠI
 
 1. (Đã xong) Docker: image build và chạy được với PGlite (không còn module native phải biên dịch). Lúc build cần mạng vì `xlsx` tải từ cdn.sheetjs.com. Dữ liệu cũ trong volume `sgu-data` (file app.db) không tự chuyển: dùng `docker cp` lấy file ra rồi chạy `npm run migrate:sqlite`.
